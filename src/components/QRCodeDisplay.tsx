@@ -50,8 +50,9 @@ export function QRCodeDisplay({ pin, onRegeneratePin, showRegenerateButton = fal
         </div>
       </div>
 
-      <p className="text-sm text-muted-foreground">
-        Scan to join or go to <span className="font-mono text-primary">{baseUrl}/join</span>
+      <p className="text-sm text-muted-foreground break-all">
+        Scan to join or go to{" "}
+        <span className="font-mono text-primary break-all">{baseUrl}/join</span>
       </p>
 
       <div className="flex flex-wrap justify-center gap-3">

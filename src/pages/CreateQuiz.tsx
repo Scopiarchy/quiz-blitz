@@ -226,32 +226,12 @@ export default function CreateQuiz() {
     }
   };
 
-  const startGame = async () => {
+  const goToSettings = () => {
     if (!quiz.id) {
       toast.error("Please save the quiz first");
       return;
     }
-
-    // Generate 6-digit PIN
-    const pin = Math.floor(100000 + Math.random() * 900000).toString();
-
-    const { data, error } = await supabase
-      .from("game_sessions")
-      .insert({
-        quiz_id: quiz.id,
-        host_id: user?.id,
-        pin,
-        status: "lobby",
-      })
-      .select()
-      .single();
-
-    if (error) {
-      toast.error("Failed to start game");
-      return;
-    }
-
-    navigate(`/host/${data.id}`);
+    navigate(`/settings/${quiz.id}`);
   };
 
   const exportQuiz = () => {
@@ -305,7 +285,7 @@ export default function CreateQuiz() {
               <Save className="w-4 h-4 mr-2" />
               {saving ? "Saving..." : "Save"}
             </Button>
-            <Button variant="accent" size="sm" onClick={startGame}>
+            <Button variant="accent" size="sm" onClick={goToSettings}>
               <Play className="w-4 h-4 mr-2" />
               Start Game
             </Button>

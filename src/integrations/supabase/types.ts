@@ -216,6 +216,65 @@ export type Database = {
           },
         ]
       }
+      quiz_settings: {
+        Row: {
+          created_at: string
+          enable_timer: boolean
+          id: string
+          leaderboard_enabled: boolean
+          max_players: number
+          music_enabled: boolean
+          nickname_generator: boolean
+          points_mode: string
+          quiz_id: string
+          random_answers: boolean
+          random_questions: boolean
+          show_answers: boolean
+          timer_seconds: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          enable_timer?: boolean
+          id?: string
+          leaderboard_enabled?: boolean
+          max_players?: number
+          music_enabled?: boolean
+          nickname_generator?: boolean
+          points_mode?: string
+          quiz_id: string
+          random_answers?: boolean
+          random_questions?: boolean
+          show_answers?: boolean
+          timer_seconds?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          enable_timer?: boolean
+          id?: string
+          leaderboard_enabled?: boolean
+          max_players?: number
+          music_enabled?: boolean
+          nickname_generator?: boolean
+          points_mode?: string
+          quiz_id?: string
+          random_answers?: boolean
+          random_questions?: boolean
+          show_answers?: boolean
+          timer_seconds?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_settings_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: true
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quizzes: {
         Row: {
           created_at: string | null

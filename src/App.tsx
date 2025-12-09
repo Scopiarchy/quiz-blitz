@@ -10,6 +10,7 @@ import CreateQuiz from "./pages/CreateQuiz";
 import JoinGame from "./pages/JoinGame";
 import HostGame from "./pages/HostGame";
 import PlayGame from "./pages/PlayGame";
+import QuizSettingsPage from "./pages/QuizSettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/create" element={<CreateQuiz />} />
+            <Route path="/settings/:quizId" element={<QuizSettingsPage />} />
             <Route path="/join" element={<JoinGame />} />
             <Route path="/host/:sessionId" element={<HostGame />} />
             <Route path="/play/:sessionId" element={<PlayGame />} />

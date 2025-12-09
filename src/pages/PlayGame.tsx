@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useGameRealtime } from "@/hooks/useGameRealtime";
+import { useSoundEffects } from "@/hooks/useSoundEffects";
 import { Card } from "@/components/ui/card";
 import { AnswerTile } from "@/components/AnswerTile";
 import { CountdownTimer } from "@/components/CountdownTimer";
@@ -28,9 +29,11 @@ export default function PlayGame() {
   const [answerSubmitted, setAnswerSubmitted] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+  const [musicEnabled, setMusicEnabled] = useState(true);
 
   const { players, gameState } = useGameRealtime(sessionId!);
   const currentPlayer = players.find((p) => p.id === playerId);
+  const { playCorrectSound, playWrongSound } = useSoundEffects();
 
   useEffect(() => {
     loadQuestions();
@@ -60,6 +63,17 @@ export default function PlayGame() {
       if (data) {
         setQuestions(data.map(q => ({ ...q, answers: q.answers as string[] })));
       }
+
+      // Load music setting
+      const { data: settings } = await supabase
+        .from("quiz_settings")
+        .select("music_enabled")
+        .eq("quiz_id", session.quiz_id)
+        .maybeSingle();
+
+      if (settings) {
+        setMusicEnabled(settings.music_enabled);
+      }
     }
   };
 
@@ -74,6 +88,15 @@ export default function PlayGame() {
     const timeTaken = Math.floor((Date.now() - questionStartTime) / 1000);
 
     setLastAnswerCorrect(isCorrect);
+
+    // Play sound effect if enabled
+    if (musicEnabled) {
+      if (isCorrect) {
+        playCorrectSound();
+      } else {
+        playWrongSound();
+      }
+    }
 
     await supabase.from("answers").insert({
       player_id: playerId,

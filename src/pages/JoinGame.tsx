@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,10 +8,19 @@ import { toast } from "sonner";
 import { ArrowLeft, Users } from "lucide-react";
 
 export default function JoinGame() {
+  const [searchParams] = useSearchParams();
   const [pin, setPin] = useState("");
   const [nickname, setNickname] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Auto-fill PIN from URL if provided
+  useEffect(() => {
+    const urlPin = searchParams.get("pin");
+    if (urlPin && /^\d{6}$/.test(urlPin)) {
+      setPin(urlPin);
+    }
+  }, [searchParams]);
 
   const handleJoin = async (e: React.FormEvent) => {
     e.preventDefault();

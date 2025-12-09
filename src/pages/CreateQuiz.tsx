@@ -5,6 +5,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { QuizSettings } from "@/components/QuizSettings";
 import { toast } from "sonner";
 import {
   Plus,
@@ -17,6 +25,7 @@ import {
   ChevronRight,
   Clock,
   Check,
+  Settings2,
 } from "lucide-react";
 
 interface Question {
@@ -47,6 +56,7 @@ export default function CreateQuiz() {
   const [saving, setSaving] = useState(false);
   const [savedQuizzes, setSavedQuizzes] = useState<{ id: string; title: string }[]>([]);
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -226,12 +236,39 @@ export default function CreateQuiz() {
     }
   };
 
-  const goToSettings = () => {
+  const openSettings = () => {
     if (!quiz.id) {
       toast.error("Please save the quiz first");
       return;
     }
-    navigate(`/settings/${quiz.id}`);
+    setSettingsOpen(true);
+  };
+
+  const handleStartGame = async () => {
+    if (!quiz.id) return;
+    
+    // Generate PIN
+    const pin = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    // Create game session
+    const { data: session, error } = await supabase
+      .from("game_sessions")
+      .insert({
+        quiz_id: quiz.id,
+        host_id: user?.id,
+        pin,
+        status: "lobby",
+      })
+      .select()
+      .single();
+
+    if (error) {
+      toast.error("Failed to create game session");
+      return;
+    }
+
+    setSettingsOpen(false);
+    navigate(`/host/${session.id}`);
   };
 
   const exportQuiz = () => {
@@ -285,7 +322,26 @@ export default function CreateQuiz() {
               <Save className="w-4 h-4 mr-2" />
               {saving ? "Saving..." : "Save"}
             </Button>
-            <Button variant="accent" size="sm" onClick={goToSettings}>
+            <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" onClick={openSettings}>
+                  <Settings2 className="w-4 h-4 mr-2" />
+                  Settings
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Game Settings</DialogTitle>
+                </DialogHeader>
+                {quiz.id && (
+                  <QuizSettings
+                    quizId={quiz.id}
+                    onStartGame={handleStartGame}
+                  />
+                )}
+              </DialogContent>
+            </Dialog>
+            <Button variant="accent" size="sm" onClick={openSettings}>
               <Play className="w-4 h-4 mr-2" />
               Start Game
             </Button>

@@ -139,7 +139,7 @@ export default function PlayGame() {
 
       {gameState.phase === "question" && currentQuestion && (
         <div className="flex-1 flex flex-col gap-3">
-          <CountdownTimer seconds={gameState.timeRemaining} maxSeconds={currentQuestion.time_limit} />
+          <CountdownTimer seconds={gameState.timeRemaining} maxSeconds={currentQuestion.time_limit} musicEnabled={musicEnabled} />
 
           {/* Question text for player */}
           <Card className="p-4 text-center bg-card/80 backdrop-blur">

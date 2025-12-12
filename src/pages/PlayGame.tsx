@@ -138,24 +138,33 @@ export default function PlayGame() {
       )}
 
       {gameState.phase === "question" && currentQuestion && (
-        <div className="flex-1 flex flex-col gap-4">
+        <div className="flex-1 flex flex-col gap-3">
           <CountdownTimer seconds={gameState.timeRemaining} maxSeconds={currentQuestion.time_limit} />
 
+          {/* Question text for player */}
+          <Card className="p-4 text-center bg-card/80 backdrop-blur">
+            <p className="text-sm text-muted-foreground mb-1">
+              Question {gameState.currentQuestionIndex + 1}
+            </p>
+            <h2 className="text-lg md:text-xl font-bold">{currentQuestion.question_text}</h2>
+          </Card>
+
           {answerSubmitted ? (
-            <Card className="flex-1 flex items-center justify-center p-8">
-              <div className="text-center">
+            <Card className="flex-1 flex items-center justify-center p-6 min-h-[200px]">
+              <div className="text-center animate-bounce-in">
                 {lastAnswerCorrect ? (
-                  <CheckCircle className="w-24 h-24 mx-auto text-green-500 mb-4" />
+                  <CheckCircle className="w-20 h-20 mx-auto text-green-500 mb-3" />
                 ) : (
-                  <XCircle className="w-24 h-24 mx-auto text-red-500 mb-4" />
+                  <XCircle className="w-20 h-20 mx-auto text-red-500 mb-3" />
                 )}
-                <p className="text-2xl font-bold">
+                <p className="text-xl font-bold">
                   {lastAnswerCorrect ? "Correct!" : "Wrong!"}
                 </p>
+                <p className="text-muted-foreground text-sm mt-2">Waiting for results...</p>
               </div>
             </Card>
           ) : (
-            <div className="grid grid-cols-2 gap-3 flex-1">
+            <div className="grid grid-cols-2 gap-2 flex-1">
               {currentQuestion.answers.map((answer, index) => (
                 <AnswerTile
                   key={index}
@@ -163,6 +172,7 @@ export default function PlayGame() {
                   answer={answer}
                   onClick={() => submitAnswer(index)}
                   disabled={answerSubmitted || gameState.timeRemaining <= 0}
+                  compact
                 />
               ))}
             </div>

@@ -25,20 +25,20 @@ export function QRCodeDisplay({ pin, onRegeneratePin, showRegenerateButton = fal
   };
 
   return (
-    <Card className="p-6 text-center space-y-5 bg-gradient-to-br from-card to-card/80 border-border/50">
-      <div>
-        <p className="text-muted-foreground text-xs uppercase tracking-wider mb-3">Game PIN</p>
+    <Card className="p-6 text-center space-y-4 bg-gradient-to-br from-card to-card/80 border-border/50">
+      {/* Game PIN - compact single line above QR */}
+      <div className="flex items-center justify-center gap-2">
+        <span className="text-muted-foreground text-sm">Game PIN:</span>
         <button
           onClick={copyPin}
-          className="pin-display hover:scale-105 transition-transform cursor-pointer block mx-auto"
+          className="text-2xl font-bold tracking-widest text-secondary hover:text-secondary/80 transition-colors cursor-pointer"
           title="Click to copy PIN"
         >
-          {pin.split('').map((digit, i) => (
-            <span key={i} className="inline-block mx-0.5">{digit}</span>
-          ))}
+          {pin}
         </button>
       </div>
 
+      {/* QR Code */}
       <div className="flex justify-center">
         <div className="p-3 bg-white rounded-xl shadow-lg shadow-black/20 hover:shadow-xl transition-shadow">
           <QRCodeSVG

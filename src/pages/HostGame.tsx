@@ -114,10 +114,20 @@ export default function HostGame() {
     if (answers) {
       for (const answer of answers) {
         if (answer.is_correct) {
+          // First fetch the current player score from DB to avoid stale state
+          const { data: playerData } = await supabase
+            .from("players")
+            .select("score")
+            .eq("id", answer.player_id)
+            .single();
+          
+          const currentScore = playerData?.score || 0;
           const points = 1000 - (answer.time_taken || 0) * 10;
+          const pointsToAdd = Math.max(100, points);
+          
           await supabase
             .from("players")
-            .update({ score: (players.find(p => p.id === answer.player_id)?.score || 0) + Math.max(100, points) })
+            .update({ score: currentScore + pointsToAdd })
             .eq("id", answer.player_id);
         }
       }
@@ -165,30 +175,45 @@ export default function HostGame() {
       <Confetti show={showConfetti} />
 
       {phase === "lobby" && (
-        <div className="max-w-4xl mx-auto space-y-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-center">Game Lobby</h1>
-          <div className="grid md:grid-cols-2 gap-6">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <h1 className="text-3xl md:text-4xl font-black text-center glow-text text-primary">Game Lobby</h1>
+          <div className="grid md:grid-cols-2 gap-6 items-start">
             {/* QR Code and PIN */}
             {session && <QRCodeDisplay pin={session.pin} />}
 
             {/* Players */}
-            <Card className="p-6">
-              <div className="flex items-center justify-center gap-2 mb-6">
-                <Users className="w-5 h-5" />
+            <Card className="p-6 bg-gradient-to-br from-card to-card/80 border-border/50 flex flex-col h-full">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Users className="w-5 h-5 text-primary" />
                 <span className="text-xl font-bold">{players.length} players joined</span>
               </div>
-              <div className="flex flex-wrap justify-center gap-2 mb-8 min-h-[100px]">
+              
+              <div className="flex-1 min-h-[120px] mb-6">
                 {players.length === 0 ? (
-                  <p className="text-muted-foreground">Waiting for players...</p>
+                  <div className="flex items-center justify-center h-full">
+                    <p className="text-muted-foreground animate-pulse">Waiting for players...</p>
+                  </div>
                 ) : (
-                  players.map((player) => (
-                    <span key={player.id} className="px-4 py-2 bg-primary/20 rounded-full font-medium animate-fade-in">
-                      {player.nickname}
-                    </span>
-                  ))
+                  <div className="flex flex-wrap justify-center gap-2 content-start">
+                    {players.map((player, i) => (
+                      <span 
+                        key={player.id} 
+                        className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full font-medium border border-primary/30 animate-slide-up"
+                        style={{ animationDelay: `${i * 0.1}s` }}
+                      >
+                        {player.nickname}
+                      </span>
+                    ))}
+                  </div>
                 )}
               </div>
-              <Button onClick={startGame} size="xl" className="w-full" disabled={players.length === 0}>
+              
+              <Button 
+                onClick={startGame} 
+                size="xl" 
+                className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/30" 
+                disabled={players.length === 0}
+              >
                 <Play className="w-6 h-6 mr-2" />
                 Start Game
               </Button>

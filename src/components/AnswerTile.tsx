@@ -6,6 +6,7 @@ interface AnswerTileProps {
   selected?: boolean;
   showResult?: boolean;
   isCorrect?: boolean;
+  compact?: boolean;
 }
 
 const tileColors = [
@@ -25,6 +26,7 @@ export function AnswerTile({
   selected = false,
   showResult = false,
   isCorrect = false,
+  compact = false,
 }: AnswerTileProps) {
   const colorClass = tileColors[index % 4];
   const icon = tileIcons[index % 4];
@@ -42,10 +44,10 @@ export function AnswerTile({
       disabled={disabled}
       className={`answer-tile ${colorClass} ${stateClass} ${
         disabled ? "cursor-not-allowed" : ""
-      }`}
+      } ${compact ? "min-h-[60px] py-3 px-4" : ""}`}
     >
-      <span className="mr-3 text-2xl">{icon}</span>
-      <span className="text-lg md:text-xl font-bold">{answer}</span>
+      <span className={`${compact ? "mr-2 text-lg" : "mr-3 text-2xl"}`}>{icon}</span>
+      <span className={`${compact ? "text-sm md:text-base" : "text-lg md:text-xl"} font-bold line-clamp-2`}>{answer}</span>
     </button>
   );
 }

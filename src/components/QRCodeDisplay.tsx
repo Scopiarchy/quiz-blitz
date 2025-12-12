@@ -25,48 +25,58 @@ export function QRCodeDisplay({ pin, onRegeneratePin, showRegenerateButton = fal
   };
 
   return (
-    <Card className="p-6 text-center space-y-6">
+    <Card className="p-6 text-center space-y-5 bg-gradient-to-br from-card to-card/80 border-border/50">
       <div>
-        <p className="text-muted-foreground text-sm mb-2">Game PIN</p>
+        <p className="text-muted-foreground text-xs uppercase tracking-wider mb-3">Game PIN</p>
         <button
           onClick={copyPin}
-          className="pin-display hover:scale-105 transition-transform cursor-pointer"
+          className="pin-display hover:scale-105 transition-transform cursor-pointer block mx-auto"
           title="Click to copy PIN"
         >
-          {pin}
+          {pin.split('').map((digit, i) => (
+            <span key={i} className="inline-block mx-0.5">{digit}</span>
+          ))}
         </button>
       </div>
 
       <div className="flex justify-center">
-        <div className="p-4 bg-white rounded-2xl shadow-lg">
+        <div className="p-3 bg-white rounded-xl shadow-lg shadow-black/20 hover:shadow-xl transition-shadow">
           <QRCodeSVG
             value={joinUrl}
-            size={180}
+            size={160}
             level="H"
-            includeMargin
+            includeMargin={false}
             bgColor="#ffffff"
             fgColor="#1a1a2e"
           />
         </div>
       </div>
 
-      <p className="text-sm text-muted-foreground break-all">
-        Scan to join or go to{" "}
-        <span className="font-mono text-primary break-all">{baseUrl}/join</span>
-      </p>
-
-      <div className="flex flex-wrap justify-center gap-3">
-        <Button variant="outline" size="sm" onClick={copyLink}>
-          <Copy className="w-4 h-4 mr-2" />
-          Copy Join Link
-        </Button>
-        {showRegenerateButton && onRegeneratePin && (
-          <Button variant="outline" size="sm" onClick={onRegeneratePin}>
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Regenerate PIN
-          </Button>
-        )}
+      <div className="space-y-2">
+        <p className="text-xs text-muted-foreground">
+          Scan to join or go to
+        </p>
+        <p className="font-mono text-primary text-sm break-all">
+          {baseUrl}/join
+        </p>
       </div>
+
+      <Button 
+        variant="outline" 
+        size="sm" 
+        onClick={copyLink}
+        className="border-primary/30 hover:border-primary hover:bg-primary/10"
+      >
+        <Copy className="w-4 h-4 mr-2" />
+        Copy Join Link
+      </Button>
+      
+      {showRegenerateButton && onRegeneratePin && (
+        <Button variant="ghost" size="sm" onClick={onRegeneratePin}>
+          <RefreshCw className="w-4 h-4 mr-2" />
+          Regenerate PIN
+        </Button>
+      )}
     </Card>
   );
 }

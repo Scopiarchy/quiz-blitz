@@ -224,7 +224,7 @@ export default function HostGame() {
 
       {phase === "question" && currentQuestion && (
         <div className="max-w-4xl mx-auto space-y-8">
-          <CountdownTimer seconds={timeRemaining} maxSeconds={currentQuestion.time_limit} />
+          <CountdownTimer seconds={timeRemaining} maxSeconds={currentQuestion.time_limit} musicEnabled={false} />
           <Card className="p-8 text-center">
             <p className="text-muted-foreground mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
             <h2 className="text-2xl md:text-4xl font-bold">{currentQuestion.question_text}</h2>

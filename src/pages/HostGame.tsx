@@ -105,40 +105,53 @@ export default function HostGame() {
 
     // Calculate scores
     const currentQuestion = questions[currentQuestionIndex];
-    const { data: answers } = await supabase
+    console.log("Fetching answers for question:", currentQuestion.id, "session:", sessionId);
+    
+    const { data: answers, error: answersError } = await supabase
       .from("answers")
       .select("*")
       .eq("session_id", sessionId)
       .eq("question_id", currentQuestion.id);
 
-    if (answers) {
+    console.log("Answers fetched:", answers, "Error:", answersError);
+
+    if (answers && answers.length > 0) {
       for (const answer of answers) {
+        console.log("Processing answer:", answer.player_id, "is_correct:", answer.is_correct);
         if (answer.is_correct) {
           // First fetch the current player score from DB to avoid stale state
-          const { data: playerData } = await supabase
+          const { data: playerData, error: playerError } = await supabase
             .from("players")
             .select("score")
             .eq("id", answer.player_id)
             .single();
           
+          console.log("Player data:", playerData, "Error:", playerError);
+          
           const currentScore = playerData?.score || 0;
           const points = 1000 - (answer.time_taken || 0) * 10;
           const pointsToAdd = Math.max(100, points);
           
-          await supabase
+          console.log("Updating player score:", answer.player_id, "from", currentScore, "adding", pointsToAdd);
+          
+          const { error: updateError } = await supabase
             .from("players")
             .update({ score: currentScore + pointsToAdd })
             .eq("id", answer.player_id);
+            
+          console.log("Update result error:", updateError);
         }
       }
     }
 
     // Fetch updated leaderboard
-    const { data: updatedPlayers } = await supabase
+    const { data: updatedPlayers, error: leaderboardError } = await supabase
       .from("players")
       .select("*")
       .eq("session_id", sessionId)
       .order("score", { ascending: false });
+
+    console.log("Updated leaderboard:", updatedPlayers, "Error:", leaderboardError);
 
     if (updatedPlayers) {
       broadcastLeaderboard(updatedPlayers.map(p => ({ id: p.id, nickname: p.nickname, score: p.score || 0 })));

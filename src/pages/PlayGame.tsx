@@ -98,14 +98,45 @@ export default function PlayGame() {
       }
     }
 
-    await supabase.from("answers").insert({
-      player_id: playerId,
-      question_id: currentQuestion.id,
-      session_id: sessionId,
-      answer_index: answerIndex,
-      is_correct: isCorrect,
-      time_taken: timeTaken,
-    });
+    try {
+      const { error: insertError } = await supabase.from("answers").insert({
+        player_id: playerId,
+        question_id: currentQuestion.id,
+        session_id: sessionId,
+        answer_index: answerIndex,
+        is_correct: isCorrect,
+        time_taken: timeTaken,
+      });
+
+      if (insertError) {
+        console.error("Error inserting answer:", insertError);
+      } else if (isCorrect && playerId) {
+        const { data: playerData, error: playerError } = await supabase
+          .from("players")
+          .select("score")
+          .eq("id", playerId)
+          .single();
+
+        if (playerError) {
+          console.error("Error fetching player score:", playerError);
+        } else {
+          const currentScore = playerData?.score || 0;
+          const points = 1000 - timeTaken * 10;
+          const pointsToAdd = Math.max(100, points);
+
+          const { error: updateError } = await supabase
+            .from("players")
+            .update({ score: currentScore + pointsToAdd })
+            .eq("id", playerId);
+
+          if (updateError) {
+            console.error("Error updating player score:", updateError);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Unexpected error submitting answer:", error);
+    }
 
     toast(isCorrect ? "Correct! 🎉" : "Wrong answer", {
       icon: isCorrect ? <CheckCircle className="text-green-500" /> : <XCircle className="text-red-500" />,

@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -332,6 +333,9 @@ export default function CreateQuiz() {
               <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Game Settings</DialogTitle>
+                  <DialogDescription className="sr-only">
+                    Configure game options like timer, leaderboard, and music.
+                  </DialogDescription>
                 </DialogHeader>
                 {quiz.id && (
                   <QuizSettings

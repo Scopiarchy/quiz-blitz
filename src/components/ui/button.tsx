@@ -5,26 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-base font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[length:200%_200%] bg-[position:0%_0%] hover:bg-[position:100%_0%] hover:shadow-glow-primary [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-primary to-purple-600 text-primary-foreground shadow-[0_4px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.3)]",
+          "bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground shadow-[0_4px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.3)]",
         destructive:
           "bg-destructive text-destructive-foreground shadow-[0_4px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.3)]",
         outline:
-          "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground",
+          "border-2 border-primary bg-transparent text-primary hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-primary-foreground",
         secondary:
-          "bg-gradient-to-r from-secondary to-cyan-500 text-secondary-foreground shadow-[0_4px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.3)]",
+          "bg-gradient-to-r from-secondary via-primary to-accent text-secondary-foreground shadow-[0_4px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.3)]",
         ghost:
           "text-foreground hover:bg-muted hover:text-foreground",
         link:
           "text-primary underline-offset-4 hover:underline",
         kahoot:
-          "bg-gradient-to-r from-primary to-purple-600 text-primary-foreground text-lg px-8 py-4 shadow-[0_6px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[3px] active:shadow-[0_3px_0_rgba(0,0,0,0.3)]",
+          "bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground text-lg px-8 py-4 shadow-[0_6px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[3px] active:shadow-[0_3px_0_rgba(0,0,0,0.3)]",
         accent:
-          "bg-accent text-accent-foreground shadow-[0_4px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.3)]",
+          "bg-gradient-to-r from-accent to-secondary text-accent-foreground shadow-[0_4px_0_rgba(0,0,0,0.3)] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.3)]",
       },
       size: {
         default: "h-11 px-6 py-2",

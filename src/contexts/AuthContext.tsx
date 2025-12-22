@@ -20,7 +20,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
+        // If the backend can't refresh the token (e.g. temporary DB outage),
+        // stop the refresh loop by clearing local auth state.
+        if (String(event) === "TOKEN_REFRESH_FAILED") {
+          try {
+            await supabase.auth.signOut();
+          } finally {
+            // Best-effort cleanup of persisted auth to avoid repeated refresh attempts.
+            for (const key of Object.keys(localStorage)) {
+              if (key.includes("auth-token") || key.startsWith("sb-")) {
+                localStorage.removeItem(key);
+              }
+            }
+            setSession(null);
+            setUser(null);
+            setLoading(false);
+          }
+          return;
+        }
+
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -30,6 +49,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      setLoading(false);
+    }).catch(() => {
+      setSession(null);
+      setUser(null);
       setLoading(false);
     });
 

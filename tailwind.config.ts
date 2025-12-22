@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        sans: ['Poppins', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -71,6 +72,14 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "1.25rem",
+        "3xl": "1.5rem",
+      },
+      boxShadow: {
+        "soft": "0 4px 24px rgba(0, 0, 0, 0.06)",
+        "soft-lg": "0 12px 40px rgba(0, 0, 0, 0.1)",
+        "glow": "0 8px 32px hsl(250, 85%, 60%, 0.25)",
+        "glow-lg": "0 12px 48px hsl(250, 85%, 60%, 0.35)",
       },
       keyframes: {
         "accordion-down": {
@@ -83,21 +92,33 @@ export default {
         },
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-20px)" },
+          "50%": { transform: "translateY(-12px)" },
         },
         "pulse-glow": {
-          "0%, 100%": { opacity: "1", filter: "drop-shadow(0 0 10px currentColor)" },
-          "50%": { opacity: "0.8", filter: "drop-shadow(0 0 30px currentColor)" },
+          "0%, 100%": { opacity: "1", filter: "drop-shadow(0 0 8px currentColor)" },
+          "50%": { opacity: "0.85", filter: "drop-shadow(0 0 20px currentColor)" },
         },
         "slide-up": {
-          from: { opacity: "0", transform: "translateY(30px)" },
+          from: { opacity: "0", transform: "translateY(24px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "bounce-in": {
           "0%": { opacity: "0", transform: "scale(0.3)" },
           "50%": { transform: "scale(1.05)" },
-          "70%": { transform: "scale(0.9)" },
+          "70%": { transform: "scale(0.95)" },
           "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.95)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
+        "hover-lift": {
+          from: { transform: "translateY(0) scale(1)" },
+          to: { transform: "translateY(-3px) scale(1.02)" },
         },
       },
       animation: {
@@ -107,6 +128,8 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "slide-up": "slide-up 0.5s ease-out forwards",
         "bounce-in": "bounce-in 0.6s ease-out forwards",
+        "fade-in": "fade-in 0.3s ease-out forwards",
+        "scale-in": "scale-in 0.3s ease-out forwards",
       },
     },
   },

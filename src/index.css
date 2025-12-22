@@ -2,71 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Kahoot-inspired vibrant design system */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+/* Modern minimal design system with Poppins */
 
 @layer base {
   :root {
-    --background: 240 10% 10%;
-    --foreground: 0 0% 98%;
+    --background: 220 30% 98%;
+    --foreground: 230 25% 18%;
 
-    --card: 240 10% 14%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 18%;
 
-    --popover: 240 10% 14%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 18%;
 
-    --primary: 280 85% 60%;
+    --primary: 250 85% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 95% 50%;
+    --secondary: 200 90% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 10% 20%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 45 100% 55%;
-    --accent-foreground: 0 0% 10%;
+    --accent: 280 75% 60%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 85% 60%;
+    --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 10% 25%;
-    --input: 240 10% 20%;
-    --ring: 280 85% 60%;
+    --border: 220 20% 88%;
+    --input: 220 20% 92%;
+    --ring: 250 85% 60%;
 
     --radius: 1rem;
 
-    /* Kahoot answer colors */
-    --kahoot-red: 0 85% 55%;
-    --kahoot-blue: 210 95% 50%;
-    --kahoot-yellow: 45 100% 50%;
-    --kahoot-green: 145 75% 45%;
+    /* Quiz answer colors - softer versions */
+    --kahoot-red: 0 80% 60%;
+    --kahoot-blue: 210 90% 55%;
+    --kahoot-yellow: 45 95% 55%;
+    --kahoot-green: 145 70% 50%;
     
-    /* Gradient backgrounds */
-    --gradient-primary: linear-gradient(135deg, hsl(280, 85%, 60%) 0%, hsl(320, 85%, 55%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(200, 95%, 50%) 0%, hsl(180, 85%, 45%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(280, 85%, 25%) 0%, hsl(240, 10%, 10%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(240, 10%, 16%) 0%, hsl(240, 10%, 12%) 100%);
+    /* Modern gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(250, 85%, 60%) 0%, hsl(280, 75%, 60%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(200, 90%, 55%) 0%, hsl(250, 85%, 60%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(220, 30%, 98%) 0%, hsl(230, 40%, 95%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(220, 30%, 98%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(200, 90%, 55%) 0%, hsl(280, 75%, 60%) 100%);
     
-    /* Glow effects */
-    --glow-primary: 0 0 30px hsl(280, 85%, 60%, 0.4);
-    --glow-secondary: 0 0 30px hsl(200, 95%, 50%, 0.4);
-    --glow-accent: 0 0 30px hsl(45, 100%, 55%, 0.4);
+    /* Soft glow effects */
+    --glow-primary: 0 8px 32px hsl(250, 85%, 60%, 0.25);
+    --glow-secondary: 0 8px 32px hsl(200, 90%, 55%, 0.25);
+    --glow-accent: 0 8px 32px hsl(280, 75%, 60%, 0.25);
 
-    --sidebar-background: 240 10% 12%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 280 85% 60%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 230 25% 18%;
+    --sidebar-primary: 250 85% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 10% 18%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 10% 20%;
-    --sidebar-ring: 280 85% 60%;
+    --sidebar-accent: 220 20% 96%;
+    --sidebar-accent-foreground: 230 25% 18%;
+    --sidebar-border: 220 20% 90%;
+    --sidebar-ring: 250 85% 60%;
   }
 
   .dark {
-    --background: 240 10% 10%;
-    --foreground: 0 0% 98%;
+    --background: 230 25% 12%;
+    --foreground: 220 30% 98%;
+    
+    --card: 230 25% 16%;
+    --card-foreground: 220 30% 98%;
+    
+    --popover: 230 25% 16%;
+    --popover-foreground: 220 30% 98%;
+    
+    --muted: 230 20% 22%;
+    --muted-foreground: 220 15% 65%;
+    
+    --border: 230 20% 25%;
+    --input: 230 20% 20%;
   }
 }
 
@@ -76,76 +88,87 @@
   }
 
   html {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   body {
-    @apply bg-background text-foreground font-montserrat antialiased;
-    background: linear-gradient(180deg, hsl(280, 85%, 15%) 0%, hsl(240, 10%, 8%) 100%);
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Poppins', sans-serif;
     min-height: 100vh;
   }
 }
 
 @layer components {
-  .kahoot-card {
-    @apply relative overflow-hidden rounded-2xl p-6;
-    background: var(--gradient-card);
-    border: 1px solid hsl(var(--border));
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  .quiz-card {
+    @apply relative overflow-hidden rounded-2xl p-6 bg-card border border-border;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .kahoot-button {
-    @apply relative font-bold text-lg px-8 py-4 rounded-xl transition-all duration-200;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+  .quiz-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
   }
 
-  .kahoot-button:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  .quiz-button {
+    @apply relative font-semibold text-lg px-8 py-4 rounded-2xl transition-all duration-300;
+    background: var(--gradient-button);
+    box-shadow: 0 4px 16px hsl(250, 85%, 60%, 0.3);
+  }
+
+  .quiz-button:hover {
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 8px 28px hsl(250, 85%, 60%, 0.4);
+  }
+
+  .quiz-button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px hsl(250, 85%, 60%, 0.3);
   }
 
   .answer-tile {
-    @apply relative w-full h-full min-h-[80px] rounded-xl font-bold text-white text-xl flex items-center justify-center transition-all duration-200 cursor-pointer;
-    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3);
+    @apply relative w-full h-full min-h-[80px] rounded-2xl font-semibold text-white text-xl flex items-center justify-center cursor-pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   }
 
   .answer-tile:hover {
-    transform: scale(1.02);
+    transform: scale(1.03) translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   }
 
   .answer-tile:active {
-    transform: translateY(3px);
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+    transform: scale(0.97);
   }
 
   .answer-red {
-    background: linear-gradient(135deg, hsl(0, 85%, 55%) 0%, hsl(0, 75%, 45%) 100%);
+    background: linear-gradient(135deg, hsl(0, 80%, 60%) 0%, hsl(350, 75%, 55%) 100%);
   }
 
   .answer-blue {
-    background: linear-gradient(135deg, hsl(210, 95%, 50%) 0%, hsl(220, 85%, 40%) 100%);
+    background: linear-gradient(135deg, hsl(210, 90%, 55%) 0%, hsl(230, 85%, 55%) 100%);
   }
 
   .answer-yellow {
-    background: linear-gradient(135deg, hsl(45, 100%, 50%) 0%, hsl(35, 95%, 45%) 100%);
-    color: hsl(0, 0%, 10%);
+    background: linear-gradient(135deg, hsl(45, 95%, 55%) 0%, hsl(35, 90%, 50%) 100%);
+    color: hsl(0, 0%, 18%);
   }
 
   .answer-green {
-    background: linear-gradient(135deg, hsl(145, 75%, 45%) 0%, hsl(155, 65%, 35%) 100%);
+    background: linear-gradient(135deg, hsl(145, 70%, 50%) 0%, hsl(160, 65%, 45%) 100%);
   }
 
   .glow-text {
-    text-shadow: 0 0 20px currentColor;
+    text-shadow: 0 0 24px currentColor;
   }
 
   .pin-display {
-    @apply text-6xl md:text-8xl font-black tracking-widest;
-    background: linear-gradient(135deg, hsl(45, 100%, 55%) 0%, hsl(35, 95%, 45%) 100%);
+    @apply text-6xl md:text-8xl font-extrabold tracking-widest;
+    background: var(--gradient-button);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 20px hsl(45, 100%, 55%, 0.5));
+    filter: drop-shadow(0 4px 16px hsl(250, 85%, 60%, 0.3));
   }
 
   .floating-animation {
@@ -170,6 +193,10 @@
     background: var(--gradient-hero);
   }
 
+  .bg-gradient-button {
+    background: var(--gradient-button);
+  }
+
   .shadow-glow-primary {
     box-shadow: var(--glow-primary);
   }
@@ -181,6 +208,14 @@
   .shadow-glow-accent {
     box-shadow: var(--glow-accent);
   }
+
+  .shadow-soft {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .shadow-soft-lg {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  }
 }
 
 @keyframes float {
@@ -188,18 +223,18 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-12px);
   }
 }
 
 @keyframes pulse-glow {
   0%, 100% {
     opacity: 1;
-    filter: drop-shadow(0 0 10px currentColor);
+    filter: drop-shadow(0 0 8px currentColor);
   }
   50% {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 30px currentColor);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 20px currentColor);
   }
 }
 
@@ -219,14 +254,14 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
 }
 
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -243,9 +278,29 @@
     transform: scale(1.05);
   }
   70% {
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
   100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
     opacity: 1;
     transform: scale(1);
   }
@@ -263,6 +318,14 @@
   animation: countdown-pulse 1s ease-in-out infinite;
 }
 
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
 .confetti-piece {
   position: fixed;
   width: 10px;
@@ -270,6 +333,7 @@
   animation: confetti-fall 3s linear forwards;
 }
 
-.font-montserrat {
-  font-family: 'Montserrat', sans-serif;
+/* Remove Montserrat reference, use Poppins */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
 }

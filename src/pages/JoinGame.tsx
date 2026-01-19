@@ -71,22 +71,28 @@ export default function JoinGame() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-background relative overflow-hidden">
+      {/* Background gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-gradient-to-br from-primary/20 to-secondary/10 rounded-full blur-[120px] animate-float" />
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-gradient-to-br from-secondary/15 to-accent/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: "2s" }} />
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to home
         </Link>
 
-        <Card>
+        <Card className="shadow-soft-lg border-border/50">
           <CardHeader className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-secondary to-cyan-500 flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
               <Users className="w-8 h-8 text-white" />
             </div>
-            <CardTitle className="text-3xl font-black">Join Game</CardTitle>
+            <CardTitle className="text-3xl font-black text-gradient">Join Game</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleJoin} className="space-y-4">
@@ -95,7 +101,7 @@ export default function JoinGame() {
                 placeholder="Game PIN"
                 value={pin}
                 onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                className="text-center text-2xl font-bold tracking-widest"
+                className="text-center text-2xl font-bold tracking-widest h-14 rounded-xl border-border/50 focus:border-primary"
                 maxLength={6}
               />
               <Input
@@ -103,12 +109,12 @@ export default function JoinGame() {
                 placeholder="Your Nickname"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
+                className="h-12 rounded-xl border-border/50 focus:border-primary"
                 maxLength={20}
               />
               <Button
                 type="submit"
-                variant="secondary"
-                className="w-full"
+                className="w-full h-12 rounded-xl shadow-glow"
                 size="lg"
                 disabled={loading || pin.length !== 6}
               >

@@ -78,8 +78,9 @@ export default {
       boxShadow: {
         "soft": "0 4px 24px rgba(0, 0, 0, 0.06)",
         "soft-lg": "0 12px 40px rgba(0, 0, 0, 0.1)",
-        "glow": "0 8px 32px hsl(250, 85%, 60%, 0.25)",
-        "glow-lg": "0 12px 48px hsl(250, 85%, 60%, 0.35)",
+        "glow": "0 4px 20px hsl(175, 80%, 40%, 0.25)",
+        "glow-lg": "0 8px 32px hsl(175, 80%, 40%, 0.3)",
+        "glow-accent": "0 4px 20px hsl(15, 85%, 55%, 0.25)",
       },
       keyframes: {
         "accordion-down": {

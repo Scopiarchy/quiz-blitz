@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Mail, Lock, User, ArrowLeft } from "lucide-react";
+import { Mail, Lock, User, ArrowLeft, Zap } from "lucide-react";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -59,22 +59,31 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-background relative overflow-hidden">
+      {/* Background gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-gradient-to-br from-primary/20 to-secondary/10 rounded-full blur-[120px] animate-float" />
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-gradient-to-br from-secondary/15 to-primary/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: "2s" }} />
+      </div>
+
+      <div className="w-full max-w-md relative z-10">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to home
         </Link>
 
-        <Card>
+        <Card className="shadow-soft-lg border-border/50">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
+              <Zap className="w-8 h-8 text-white" />
+            </div>
+            <CardTitle className="text-3xl font-black text-gradient">
               {isLogin ? "Welcome Back!" : "Create Account"}
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-muted-foreground">
               {isLogin
                 ? "Sign in to access your quizzes"
                 : "Join QuizBlitz and start creating"}
@@ -90,7 +99,7 @@ export default function Auth() {
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="pl-12"
+                    className="pl-12 h-12 rounded-xl border-border/50 focus:border-primary"
                     required={!isLogin}
                   />
                 </div>
@@ -102,7 +111,7 @@ export default function Auth() {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-12"
+                  className="pl-12 h-12 rounded-xl border-border/50 focus:border-primary"
                   required
                 />
               </div>
@@ -113,11 +122,11 @@ export default function Auth() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-12"
+                  className="pl-12 h-12 rounded-xl border-border/50 focus:border-primary"
                   required
                 />
               </div>
-              <Button type="submit" className="w-full" size="lg" disabled={loading}>
+              <Button type="submit" className="w-full h-12 rounded-xl shadow-glow" size="lg" disabled={loading}>
                 {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
               </Button>
             </form>
@@ -126,7 +135,7 @@ export default function Auth() {
               <button
                 type="button"
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 {isLogin
                   ? "Don't have an account? Sign up"

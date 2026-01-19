@@ -1,30 +1,30 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Users, Zap, Trophy, ArrowRight, Play, ChevronDown } from "lucide-react";
+import { Sparkles, Users, Zap, Trophy, ArrowRight, Play, ChevronDown, Code, Award, Clock } from "lucide-react";
 
 export default function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-background/80 backdrop-blur-md border-b border-border/30">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-background/90 backdrop-blur-md border-b border-border/40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-glow animate-pulse-glow">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow animate-pulse-glow">
               <Zap className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-gradient">
               QuizBlitz
             </span>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors font-medium">
+            <a href="#features" className="text-muted-foreground hover:text-primary transition-colors font-medium">
               Features
             </a>
-            <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors font-medium">
+            <a href="#how-it-works" className="text-muted-foreground hover:text-primary transition-colors font-medium">
               How It Works
             </a>
             <Link to="/auth">
-              <Button variant="ghost" className="font-medium">
+              <Button variant="ghost" className="font-medium hover:text-primary">
                 Sign In
               </Button>
             </Link>
@@ -37,22 +37,22 @@ export default function Index() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        {/* Animated gradient orbs */}
+        {/* Animated gradient orbs - teal/purple theme */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gradient-to-br from-primary/25 to-secondary/15 rounded-full blur-[120px] animate-float" />
+          <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gradient-to-br from-primary/20 to-secondary/10 rounded-full blur-[120px] animate-float" />
           <div 
-            className="absolute -bottom-40 -right-40 w-[700px] h-[700px] bg-gradient-to-br from-accent/20 to-primary/10 rounded-full blur-[140px] animate-float" 
+            className="absolute -bottom-40 -right-40 w-[700px] h-[700px] bg-gradient-to-br from-secondary/15 to-primary/10 rounded-full blur-[140px] animate-float" 
             style={{ animationDelay: "2s" }} 
           />
           <div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-secondary/15 to-accent/10 rounded-full blur-[100px] animate-float" 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-accent/10 to-primary/5 rounded-full blur-[100px] animate-float" 
             style={{ animationDelay: "4s" }} 
           />
         </div>
 
         {/* Grid pattern overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--primary)) 1px, transparent 0)`,
             backgroundSize: '50px 50px'
@@ -64,7 +64,7 @@ export default function Index() {
             {/* Left: Hero Text */}
             <div className="text-center lg:text-left">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 mb-8 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
                 <span className="text-sm font-semibold text-primary">The #1 Live Quiz Platform</span>
               </div>
@@ -72,7 +72,7 @@ export default function Index() {
               {/* Main heading */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 animate-bounce-in leading-[1.1]">
                 <span className="text-foreground">Hi, Welcome to </span>
-                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                <span className="text-gradient">
                   QuizBlitz
                 </span>
               </h1>
@@ -109,16 +109,16 @@ export default function Index() {
             {/* Right: Decorative Element */}
             <div className="hidden lg:flex items-center justify-center animate-scale-in" style={{ animationDelay: "0.3s" }}>
               <div className="relative">
-                {/* Hexagon-inspired shape */}
+                {/* Main card shape */}
                 <div className="w-80 h-80 relative">
                   {/* Outer glow ring */}
-                  <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 blur-xl animate-pulse-glow" />
+                  <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-primary/25 via-secondary/15 to-accent/20 blur-xl animate-pulse-glow" />
                   
                   {/* Main shape */}
                   <div className="absolute inset-4 rounded-[2.5rem] bg-gradient-to-br from-primary via-secondary to-accent p-1 shadow-glow-lg">
                     <div className="w-full h-full rounded-[2.25rem] bg-card flex items-center justify-center">
                       <div className="text-center p-8">
-                        <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-glow">
+                        <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
                           <Zap className="w-10 h-10 text-white" />
                         </div>
                         <h3 className="text-2xl font-bold text-foreground mb-2">Ready to Play?</h3>
@@ -130,7 +130,7 @@ export default function Index() {
                   {/* Floating feature badges */}
                   <div className="absolute -top-4 -right-4 px-4 py-2 rounded-xl bg-card border border-border shadow-soft-lg animate-float">
                     <div className="flex items-center gap-2">
-                      <Trophy className="w-4 h-4 text-yellow-500" />
+                      <Trophy className="w-4 h-4 text-accent" />
                       <span className="text-sm font-medium">Leaderboards</span>
                     </div>
                   </div>
@@ -144,7 +144,7 @@ export default function Index() {
 
                   <div className="absolute top-1/2 -right-8 px-4 py-2 rounded-xl bg-card border border-border shadow-soft-lg animate-float" style={{ animationDelay: "2s" }}>
                     <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-accent" />
+                      <Sparkles className="w-4 h-4 text-secondary" />
                       <span className="text-sm font-medium">Real-time</span>
                     </div>
                   </div>
@@ -174,7 +174,7 @@ export default function Index() {
 
         {/* Scroll Indicator */}
         <a 
-          href="#features" 
+          href="#stats" 
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors animate-bounce cursor-pointer"
         >
           <span className="text-sm font-medium">Scroll Down</span>
@@ -182,8 +182,34 @@ export default function Index() {
         </a>
       </section>
 
+      {/* Stats Section - Portfolio style */}
+      <section id="stats" className="py-20 px-6 bg-card/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { icon: Code, number: "10K+", label: "Quizzes Created" },
+              { icon: Users, number: "50K+", label: "Active Players" },
+              { icon: Award, number: "1M+", label: "Games Played" },
+              { icon: Clock, number: "24/7", label: "Available" },
+            ].map((stat, i) => (
+              <div 
+                key={stat.label} 
+                className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 animate-slide-up"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                  <stat.icon className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="text-3xl font-bold text-gradient mb-1">{stat.number}</h3>
+                <p className="text-muted-foreground text-sm">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
-      <section id="features" className="py-24 px-6 bg-card/30">
+      <section id="features" className="py-24 px-6 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
@@ -191,7 +217,7 @@ export default function Index() {
               <span className="text-sm font-semibold text-primary">Features</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Why Choose <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">QuizBlitz?</span>
+              Why Choose <span className="text-gradient">QuizBlitz?</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Everything you need to create engaging, interactive learning experiences
@@ -200,10 +226,10 @@ export default function Index() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Sparkles, title: "Interactive Quizzes", description: "Create engaging multiple-choice questions with custom options", gradient: "from-primary to-secondary" },
-              { icon: Users, title: "Multiplayer Mode", description: "Host live games with unlimited players joining in real-time", gradient: "from-secondary to-accent" },
-              { icon: Zap, title: "Real-time Results", description: "See answers and scores update instantly as players respond", gradient: "from-accent to-primary" },
-              { icon: Trophy, title: "Leaderboards", description: "Track scores and celebrate winners with animated leaderboards", gradient: "from-primary to-accent" },
+              { icon: Sparkles, title: "Interactive Quizzes", description: "Create engaging multiple-choice questions with custom options", gradient: "from-primary to-primary/60" },
+              { icon: Users, title: "Multiplayer Mode", description: "Host live games with unlimited players joining in real-time", gradient: "from-secondary to-secondary/60" },
+              { icon: Zap, title: "Real-time Results", description: "See answers and scores update instantly as players respond", gradient: "from-primary to-secondary" },
+              { icon: Trophy, title: "Leaderboards", description: "Track scores and celebrate winners with animated leaderboards", gradient: "from-accent to-accent/60" },
             ].map((feature, i) => (
               <div
                 key={feature.title}
@@ -222,15 +248,15 @@ export default function Index() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 px-6 bg-background">
+      <section id="how-it-works" className="py-24 px-6 bg-card/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
-              <Play className="w-4 h-4 text-accent" />
-              <span className="text-sm font-semibold text-accent">How It Works</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
+              <Play className="w-4 h-4 text-secondary" />
+              <span className="text-sm font-semibold text-secondary">How It Works</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Get Started in <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">3 Easy Steps</span>
+              Get Started in <span className="text-gradient">3 Easy Steps</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               Launch your first quiz in minutes with our simple process
@@ -243,19 +269,19 @@ export default function Index() {
                 step: "1",
                 title: "Create Your Quiz",
                 description: "Build engaging quizzes with multiple choice questions, custom time limits, and personalized themes.",
-                gradient: "from-primary to-secondary",
+                gradient: "from-primary to-primary/70",
               },
               {
                 step: "2",
                 title: "Share the PIN",
                 description: "Get a unique 6-digit PIN. Share it with players via QR code or just tell them the number.",
-                gradient: "from-secondary to-accent",
+                gradient: "from-secondary to-secondary/70",
               },
               {
                 step: "3",
                 title: "Compete & Win",
                 description: "Players answer in real-time. Fastest correct answers earn the most points. Celebrate the winners!",
-                gradient: "from-accent to-primary",
+                gradient: "from-accent to-accent/70",
               },
             ].map((item, i) => (
               <div
@@ -288,13 +314,13 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 px-6 border-t border-border/30 bg-card/20">
+      <footer className="py-10 px-6 border-t border-border/40 bg-card/30">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-glow">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
               <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">QuizBlitz</span>
+            <span className="text-xl font-bold text-gradient">QuizBlitz</span>
           </div>
           <p className="text-sm text-muted-foreground">
             © 2024 QuizBlitz. Built with ❤️ for learning and fun.

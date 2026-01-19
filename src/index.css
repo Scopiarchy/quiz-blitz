@@ -2,83 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Modern minimal design system with Poppins */
+/* Modern portfolio-inspired design system */
 
 @layer base {
   :root {
-    --background: 220 30% 98%;
-    --foreground: 230 25% 18%;
+    --background: 220 20% 97%;
+    --foreground: 220 30% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 230 25% 18%;
+    --card-foreground: 220 30% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 230 25% 18%;
+    --popover-foreground: 220 30% 15%;
 
-    --primary: 250 85% 60%;
+    /* Teal/Cyan primary - portfolio style */
+    --primary: 175 80% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 90% 55%;
+    /* Purple secondary */
+    --secondary: 260 70% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 20% 94%;
+    --muted: 220 15% 92%;
     --muted-foreground: 220 15% 45%;
 
-    --accent: 280 75% 60%;
+    /* Coral/Orange accent */
+    --accent: 15 85% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 88%;
-    --input: 220 20% 92%;
-    --ring: 250 85% 60%;
+    --border: 220 15% 88%;
+    --input: 220 15% 92%;
+    --ring: 175 80% 40%;
 
     --radius: 1rem;
 
-    /* Quiz answer colors - softer versions */
-    --kahoot-red: 0 80% 60%;
-    --kahoot-blue: 210 90% 55%;
+    /* Quiz answer colors */
+    --kahoot-red: 0 75% 55%;
+    --kahoot-blue: 210 85% 55%;
     --kahoot-yellow: 45 95% 55%;
-    --kahoot-green: 145 70% 50%;
+    --kahoot-green: 160 70% 45%;
     
-    /* Modern gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(250, 85%, 60%) 0%, hsl(280, 75%, 60%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(200, 90%, 55%) 0%, hsl(250, 85%, 60%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(220, 30%, 98%) 0%, hsl(230, 40%, 95%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(220, 30%, 98%) 100%);
-    --gradient-button: linear-gradient(135deg, hsl(200, 90%, 55%) 0%, hsl(280, 75%, 60%) 100%);
+    /* Modern gradients - teal to purple */
+    --gradient-primary: linear-gradient(135deg, hsl(175, 80%, 40%) 0%, hsl(190, 85%, 45%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(260, 70%, 55%) 0%, hsl(280, 75%, 50%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(220, 20%, 97%) 0%, hsl(220, 25%, 94%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(220, 20%, 98%) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(175, 80%, 40%) 0%, hsl(260, 70%, 55%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(15, 85%, 55%) 0%, hsl(35, 90%, 50%) 100%);
     
-    /* Soft glow effects */
-    --glow-primary: 0 8px 32px hsl(250, 85%, 60%, 0.25);
-    --glow-secondary: 0 8px 32px hsl(200, 90%, 55%, 0.25);
-    --glow-accent: 0 8px 32px hsl(280, 75%, 60%, 0.25);
+    /* Glow effects */
+    --glow-primary: 0 8px 32px hsl(175, 80%, 40%, 0.25);
+    --glow-secondary: 0 8px 32px hsl(260, 70%, 55%, 0.25);
+    --glow-accent: 0 8px 32px hsl(15, 85%, 55%, 0.25);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 230 25% 18%;
-    --sidebar-primary: 250 85% 60%;
+    --sidebar-foreground: 220 30% 15%;
+    --sidebar-primary: 175 80% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 20% 96%;
-    --sidebar-accent-foreground: 230 25% 18%;
-    --sidebar-border: 220 20% 90%;
-    --sidebar-ring: 250 85% 60%;
+    --sidebar-accent: 220 15% 96%;
+    --sidebar-accent-foreground: 220 30% 15%;
+    --sidebar-border: 220 15% 90%;
+    --sidebar-ring: 175 80% 40%;
   }
 
   .dark {
-    --background: 230 25% 12%;
-    --foreground: 220 30% 98%;
+    --background: 220 25% 8%;
+    --foreground: 220 20% 95%;
     
-    --card: 230 25% 16%;
-    --card-foreground: 220 30% 98%;
+    --card: 220 25% 12%;
+    --card-foreground: 220 20% 95%;
     
-    --popover: 230 25% 16%;
-    --popover-foreground: 220 30% 98%;
+    --popover: 220 25% 12%;
+    --popover-foreground: 220 20% 95%;
     
-    --muted: 230 20% 22%;
-    --muted-foreground: 220 15% 65%;
+    --primary: 175 75% 45%;
+    --primary-foreground: 220 25% 8%;
     
-    --border: 230 20% 25%;
-    --input: 230 20% 20%;
+    --secondary: 260 65% 60%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 220 20% 18%;
+    --muted-foreground: 220 15% 60%;
+    
+    --accent: 15 80% 55%;
+    --accent-foreground: 0 0% 100%;
+    
+    --border: 220 20% 20%;
+    --input: 220 20% 16%;
+    --ring: 175 75% 45%;
+    
+    /* Dark mode gradients */
+    --gradient-hero: linear-gradient(180deg, hsl(220, 25%, 8%) 0%, hsl(220, 25%, 12%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220, 25%, 14%) 0%, hsl(220, 25%, 10%) 100%);
+    
+    --sidebar-background: 220 25% 10%;
+    --sidebar-foreground: 220 20% 95%;
+    --sidebar-accent: 220 20% 16%;
+    --sidebar-accent-foreground: 220 20% 95%;
+    --sidebar-border: 220 20% 18%;
   }
 }
 
@@ -113,17 +137,17 @@
   .quiz-button {
     @apply relative font-semibold text-lg px-8 py-4 rounded-2xl transition-all duration-300;
     background: var(--gradient-button);
-    box-shadow: 0 4px 16px hsl(250, 85%, 60%, 0.3);
+    box-shadow: 0 4px 16px hsl(175, 80%, 40%, 0.3);
   }
 
   .quiz-button:hover {
     transform: scale(1.02) translateY(-2px);
-    box-shadow: 0 8px 28px hsl(250, 85%, 60%, 0.4);
+    box-shadow: 0 8px 28px hsl(175, 80%, 40%, 0.4);
   }
 
   .quiz-button:active {
     transform: scale(0.98);
-    box-shadow: 0 2px 8px hsl(250, 85%, 60%, 0.3);
+    box-shadow: 0 2px 8px hsl(175, 80%, 40%, 0.3);
   }
 
   .answer-tile {
@@ -142,11 +166,11 @@
   }
 
   .answer-red {
-    background: linear-gradient(135deg, hsl(0, 80%, 60%) 0%, hsl(350, 75%, 55%) 100%);
+    background: linear-gradient(135deg, hsl(0, 75%, 55%) 0%, hsl(350, 70%, 50%) 100%);
   }
 
   .answer-blue {
-    background: linear-gradient(135deg, hsl(210, 90%, 55%) 0%, hsl(230, 85%, 55%) 100%);
+    background: linear-gradient(135deg, hsl(210, 85%, 55%) 0%, hsl(230, 80%, 55%) 100%);
   }
 
   .answer-yellow {
@@ -155,7 +179,7 @@
   }
 
   .answer-green {
-    background: linear-gradient(135deg, hsl(145, 70%, 50%) 0%, hsl(160, 65%, 45%) 100%);
+    background: linear-gradient(135deg, hsl(160, 70%, 45%) 0%, hsl(175, 65%, 40%) 100%);
   }
 
   .glow-text {
@@ -168,7 +192,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 4px 16px hsl(250, 85%, 60%, 0.3));
+    filter: drop-shadow(0 4px 16px hsl(175, 80%, 40%, 0.3));
   }
 
   .floating-animation {
@@ -177,6 +201,33 @@
 
   .pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Skill bar style from portfolio */
+  .skill-bar {
+    @apply h-2 rounded-full bg-muted overflow-hidden;
+  }
+
+  .skill-progress {
+    @apply h-full rounded-full;
+    background: var(--gradient-button);
+    transition: width 1s ease-out;
+  }
+
+  /* Section title style */
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-foreground relative inline-block;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute -bottom-2 left-0 w-16 h-1 rounded-full;
+    background: var(--gradient-button);
+  }
+
+  /* Hexagon shape from portfolio */
+  .hexagon-shape {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   }
 }
 
@@ -197,6 +248,10 @@
     background: var(--gradient-button);
   }
 
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+
   .shadow-glow-primary {
     box-shadow: var(--glow-primary);
   }
@@ -215,6 +270,14 @@
 
   .shadow-soft-lg {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Text gradient utility */
+  .text-gradient {
+    background: var(--gradient-button);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 
@@ -306,6 +369,15 @@
   }
 }
 
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 .animate-slide-up {
   animation: slide-up 0.5s ease-out forwards;
 }
@@ -326,6 +398,14 @@
   animation: scale-in 0.3s ease-out forwards;
 }
 
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
 .confetti-piece {
   position: fixed;
   width: 10px;
@@ -333,7 +413,6 @@
   animation: confetti-fall 3s linear forwards;
 }
 
-/* Remove Montserrat reference, use Poppins */
 .font-poppins {
   font-family: 'Poppins', sans-serif;
 }

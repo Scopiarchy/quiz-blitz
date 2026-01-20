@@ -15,7 +15,8 @@ export default {
     extend: {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
-        sans: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'Poppins', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -76,11 +77,11 @@ export default {
         "3xl": "1.5rem",
       },
       boxShadow: {
-        "soft": "0 4px 24px rgba(0, 0, 0, 0.2)",
-        "soft-lg": "0 12px 40px rgba(0, 0, 0, 0.3)",
-        "glow": "0 4px 20px hsl(270, 70%, 60%, 0.35)",
-        "glow-lg": "0 12px 48px hsl(270, 70%, 60%, 0.4)",
-        "glow-secondary": "0 4px 20px hsl(175, 70%, 45%, 0.3)",
+        "soft": "0 4px 24px rgba(0, 0, 0, 0.3)",
+        "soft-lg": "0 12px 40px rgba(0, 0, 0, 0.4)",
+        "glow": "0 4px 20px hsla(152, 100%, 45%, 0.35)",
+        "glow-lg": "0 12px 48px hsla(152, 100%, 45%, 0.4)",
+        "glow-secondary": "0 4px 20px hsla(265, 100%, 56%, 0.3)",
       },
       keyframes: {
         "accordion-down": {

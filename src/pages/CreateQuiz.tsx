@@ -296,43 +296,49 @@ export default function CreateQuiz() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-xl text-primary animate-pulse">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen p-4 md:p-8 bg-background relative overflow-hidden">
+      {/* Background gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-gradient-to-br from-primary/15 to-secondary/10 rounded-full blur-[120px] animate-float" />
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-gradient-to-br from-secondary/15 to-primary/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: "2s" }} />
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex flex-wrap items-center gap-4 mb-8">
           <Link to="/">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Home
             </Button>
           </Link>
-          <h1 className="text-2xl md:text-3xl font-bold flex-1">Quiz Creator</h1>
+          <h1 className="text-2xl md:text-3xl font-bold flex-1 text-gradient">Quiz Creator</h1>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={exportQuiz}>
+            <Button variant="outline" size="sm" onClick={exportQuiz} className="border-border hover:border-primary hover:bg-primary/10">
               <Download className="w-4 h-4 mr-2" />
               Export
             </Button>
-            <Button size="sm" onClick={saveQuiz} disabled={saving}>
+            <Button size="sm" onClick={saveQuiz} disabled={saving} className="bg-gradient-button shadow-glow hover:shadow-glow-lg">
               <Save className="w-4 h-4 mr-2" />
               {saving ? "Saving..." : "Save"}
             </Button>
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
               <DialogTrigger asChild>
-                <Button variant="outline" size="sm" onClick={openSettings}>
+                <Button variant="outline" size="sm" onClick={openSettings} className="border-border hover:border-secondary hover:bg-secondary/10">
                   <Settings2 className="w-4 h-4 mr-2" />
                   Settings
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border">
                 <DialogHeader>
-                  <DialogTitle>Game Settings</DialogTitle>
+                  <DialogTitle className="text-foreground">Game Settings</DialogTitle>
                   <DialogDescription className="sr-only">
                     Configure game options like timer, leaderboard, and music.
                   </DialogDescription>
@@ -345,7 +351,7 @@ export default function CreateQuiz() {
                 )}
               </DialogContent>
             </Dialog>
-            <Button variant="accent" size="sm" onClick={openSettings}>
+            <Button size="sm" onClick={openSettings} className="bg-gradient-secondary shadow-glow-secondary hover:opacity-90">
               <Play className="w-4 h-4 mr-2" />
               Start Game
             </Button>
@@ -356,9 +362,9 @@ export default function CreateQuiz() {
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Saved Quizzes */}
-            <Card>
+            <Card className="bg-card border-border shadow-soft">
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">My Quizzes</CardTitle>
+                <CardTitle className="text-lg text-foreground">My Quizzes</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 {savedQuizzes.length === 0 ? (
@@ -368,10 +374,10 @@ export default function CreateQuiz() {
                     <button
                       key={q.id}
                       onClick={() => loadQuiz(q.id)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                         selectedQuizId === q.id
-                          ? "bg-primary text-primary-foreground"
-                          : "hover:bg-muted"
+                          ? "bg-primary text-primary-foreground shadow-glow"
+                          : "hover:bg-muted text-foreground"
                       }`}
                     >
                       {q.title}
@@ -382,19 +388,19 @@ export default function CreateQuiz() {
             </Card>
 
             {/* Question Navigator */}
-            <Card>
+            <Card className="bg-card border-border shadow-soft">
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Questions</CardTitle>
+                <CardTitle className="text-lg text-foreground">Questions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 {quiz.questions.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentQuestionIndex(index)}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center gap-2 ${
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center gap-2 ${
                       currentQuestionIndex === index
-                        ? "bg-primary text-primary-foreground"
-                        : "hover:bg-muted"
+                        ? "bg-primary text-primary-foreground shadow-glow"
+                        : "hover:bg-muted text-foreground"
                     }`}
                   >
                     <span className="font-bold">Q{index + 1}</span>
@@ -406,7 +412,7 @@ export default function CreateQuiz() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full mt-2"
+                  className="w-full mt-2 border-primary/30 hover:border-primary hover:bg-primary/10 text-primary"
                   onClick={addQuestion}
                 >
                   <Plus className="w-4 h-4 mr-2" />
@@ -419,13 +425,13 @@ export default function CreateQuiz() {
           {/* Main Editor */}
           <div className="space-y-6">
             {/* Quiz Info */}
-            <Card>
+            <Card className="bg-card border-border shadow-soft">
               <CardContent className="pt-6 space-y-4">
                 <Input
                   placeholder="Quiz Title"
                   value={quiz.title}
                   onChange={(e) => setQuiz((prev) => ({ ...prev, title: e.target.value }))}
-                  className="text-xl font-bold"
+                  className="text-xl font-bold bg-muted border-border focus:border-primary text-foreground"
                 />
                 <Input
                   placeholder="Description (optional)"
@@ -433,20 +439,22 @@ export default function CreateQuiz() {
                   onChange={(e) =>
                     setQuiz((prev) => ({ ...prev, description: e.target.value }))
                   }
+                  className="bg-muted border-border focus:border-primary text-foreground"
                 />
               </CardContent>
             </Card>
 
             {/* Question Editor */}
-            <Card>
+            <Card className="bg-card border-border shadow-soft">
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Question {currentQuestionIndex + 1}</CardTitle>
+                <CardTitle className="text-foreground">Question {currentQuestionIndex + 1}</CardTitle>
                 <div className="flex items-center gap-2">
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
                     disabled={currentQuestionIndex === 0}
+                    className="text-muted-foreground hover:text-primary"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </Button>
@@ -462,6 +470,7 @@ export default function CreateQuiz() {
                       )
                     }
                     disabled={currentQuestionIndex === quiz.questions.length - 1}
+                    className="text-muted-foreground hover:text-primary"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </Button>
@@ -479,17 +488,17 @@ export default function CreateQuiz() {
                   placeholder="Enter your question..."
                   value={currentQuestion.question_text}
                   onChange={(e) => updateQuestion("question_text", e.target.value)}
-                  className="text-lg"
+                  className="text-lg bg-muted border-border focus:border-primary text-foreground"
                 />
 
                 {/* Time Limit */}
                 <div className="flex items-center gap-4">
-                  <Clock className="w-5 h-5 text-muted-foreground" />
-                  <span className="text-sm">Time limit:</span>
+                  <Clock className="w-5 h-5 text-primary" />
+                  <span className="text-sm text-muted-foreground">Time limit:</span>
                   <select
                     value={currentQuestion.time_limit}
                     onChange={(e) => updateQuestion("time_limit", parseInt(e.target.value))}
-                    className="bg-card border border-border rounded-lg px-3 py-2"
+                    className="bg-muted border border-border rounded-lg px-3 py-2 text-foreground focus:border-primary"
                   >
                     <option value={10}>10 seconds</option>
                     <option value={20}>20 seconds</option>
@@ -504,10 +513,13 @@ export default function CreateQuiz() {
                   {currentQuestion.answers.map((answer, index) => (
                     <div
                       key={index}
-                      className={`relative rounded-xl p-4 ${
-                        ["bg-red-500/20", "bg-blue-500/20", "bg-yellow-500/20", "bg-green-500/20"][
-                          index
-                        ]
+                      className={`relative rounded-xl p-4 border transition-all ${
+                        [
+                          "bg-red-500/10 border-red-500/30 hover:border-red-500/50",
+                          "bg-blue-500/10 border-blue-500/30 hover:border-blue-500/50",
+                          "bg-yellow-500/10 border-yellow-500/30 hover:border-yellow-500/50",
+                          "bg-primary/10 border-primary/30 hover:border-primary/50"
+                        ][index]
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -516,8 +528,8 @@ export default function CreateQuiz() {
                           onClick={() => updateQuestion("correct_answer_index", index)}
                           className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all ${
                             currentQuestion.correct_answer_index === index
-                              ? "bg-green-500 border-green-500 text-white"
-                              : "border-muted-foreground hover:border-foreground"
+                              ? "bg-primary border-primary text-primary-foreground shadow-glow"
+                              : "border-muted-foreground hover:border-primary"
                           }`}
                         >
                           {currentQuestion.correct_answer_index === index && (
@@ -528,7 +540,7 @@ export default function CreateQuiz() {
                           placeholder={`Answer ${index + 1}`}
                           value={answer}
                           onChange={(e) => updateAnswer(index, e.target.value)}
-                          className="flex-1 bg-transparent border-none"
+                          className="flex-1 bg-transparent border-none text-foreground placeholder:text-muted-foreground"
                         />
                       </div>
                     </div>

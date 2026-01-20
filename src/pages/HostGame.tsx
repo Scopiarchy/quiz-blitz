@@ -152,21 +152,27 @@ export default function HostGame() {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
+    <div className="min-h-screen p-4 md:p-8 bg-background relative overflow-hidden">
+      {/* Background gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-gradient-to-br from-primary/15 to-secondary/10 rounded-full blur-[120px] animate-float" />
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-gradient-to-br from-secondary/15 to-primary/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: "2s" }} />
+      </div>
+
       <Confetti show={showConfetti} />
 
       {phase === "lobby" && (
-        <div className="max-w-5xl mx-auto space-y-6">
-          <h1 className="text-3xl md:text-4xl font-black text-center glow-text text-primary">Game Lobby</h1>
+        <div className="max-w-5xl mx-auto space-y-6 relative z-10">
+          <h1 className="text-3xl md:text-4xl font-black text-center text-gradient glow-text">Game Lobby</h1>
           <div className="grid md:grid-cols-2 gap-6 items-start">
             {/* QR Code and PIN */}
             {session && <QRCodeDisplay pin={session.pin} />}
 
             {/* Players */}
-            <Card className="p-6 bg-gradient-to-br from-card to-card/80 border-border/50 flex flex-col h-full">
+            <Card className="p-6 bg-card border-border shadow-soft flex flex-col h-full">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Users className="w-5 h-5 text-primary" />
-                <span className="text-xl font-bold">{players.length} players joined</span>
+                <span className="text-xl font-bold text-foreground">{players.length} players joined</span>
               </div>
               
               <div className="flex-1 min-h-[120px] mb-6">
@@ -179,7 +185,7 @@ export default function HostGame() {
                     {players.map((player, i) => (
                       <span 
                         key={player.id} 
-                        className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full font-medium border border-primary/30 animate-slide-up"
+                        className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full font-medium border border-primary/30 text-foreground animate-slide-up"
                         style={{ animationDelay: `${i * 0.1}s` }}
                       >
                         {player.nickname}
@@ -192,7 +198,7 @@ export default function HostGame() {
               <Button 
                 onClick={startGame} 
                 size="xl" 
-                className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg shadow-primary/30" 
+                className="w-full bg-gradient-button text-primary-foreground shadow-glow hover:shadow-glow-lg transition-all" 
                 disabled={players.length === 0}
               >
                 <Play className="w-6 h-6 mr-2" />
@@ -204,11 +210,11 @@ export default function HostGame() {
       )}
 
       {phase === "question" && currentQuestion && (
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-8 relative z-10">
           <CountdownTimer seconds={timeRemaining} maxSeconds={currentQuestion.time_limit} musicEnabled={false} />
-          <Card className="p-8 text-center">
+          <Card className="p-8 text-center bg-card border-border shadow-soft">
             <p className="text-muted-foreground mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
-            <h2 className="text-2xl md:text-4xl font-bold">{currentQuestion.question_text}</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-foreground">{currentQuestion.question_text}</h2>
           </Card>
           <div className="grid md:grid-cols-2 gap-4">
             {currentQuestion.answers.map((answer, index) => (
@@ -219,8 +225,8 @@ export default function HostGame() {
       )}
 
       {phase === "results" && currentQuestion && (
-        <div className="max-w-4xl mx-auto space-y-8 text-center">
-          <h2 className="text-3xl font-bold">Results</h2>
+        <div className="max-w-4xl mx-auto space-y-8 text-center relative z-10">
+          <h2 className="text-3xl font-bold text-gradient">Results</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {currentQuestion.answers.map((answer, index) => (
               <AnswerTile
@@ -234,7 +240,7 @@ export default function HostGame() {
             ))}
           </div>
           <Leaderboard players={players} limit={5} />
-          <Button onClick={nextQuestion} size="xl">
+          <Button onClick={nextQuestion} size="xl" className="bg-gradient-button text-primary-foreground shadow-glow hover:shadow-glow-lg">
             <SkipForward className="w-6 h-6 mr-2" />
             {currentQuestionIndex < questions.length - 1 ? "Next Question" : "See Final Results"}
           </Button>
@@ -242,16 +248,18 @@ export default function HostGame() {
       )}
 
       {phase === "finished" && (
-        <div className="max-w-2xl mx-auto text-center space-y-8">
-          <Trophy className="w-24 h-24 mx-auto text-accent animate-bounce" />
-          <h1 className="text-4xl md:text-6xl font-black">Game Over!</h1>
+        <div className="max-w-2xl mx-auto text-center space-y-8 relative z-10">
+          <Trophy className="w-24 h-24 mx-auto text-primary animate-bounce" />
+          <h1 className="text-4xl md:text-6xl font-black text-gradient">Game Over!</h1>
           {players.length > 0 && (
             <div className="text-2xl font-bold text-primary">
               🏆 Winner: {players.sort((a, b) => b.score - a.score)[0]?.nickname}
             </div>
           )}
           <Leaderboard players={players} />
-          <Button onClick={() => navigate("/create")} size="lg">Back to Creator</Button>
+          <Button onClick={() => navigate("/create")} size="lg" className="bg-gradient-button text-primary-foreground shadow-glow hover:shadow-glow-lg">
+            Back to Creator
+          </Button>
         </div>
       )}
     </div>

@@ -9,7 +9,7 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 import { Leaderboard } from "@/components/Leaderboard";
 import { Confetti } from "@/components/Confetti";
 import { toast } from "sonner";
-import { Clock, Trophy, CheckCircle, XCircle } from "lucide-react";
+import { Clock, Trophy, CheckCircle, XCircle, Zap } from "lucide-react";
 
 interface Question {
   id: string;
@@ -139,63 +139,83 @@ export default function PlayGame() {
     }
 
     toast(isCorrect ? "Correct! 🎉" : "Wrong answer", {
-      icon: isCorrect ? <CheckCircle className="text-green-500" /> : <XCircle className="text-red-500" />,
+      icon: isCorrect ? <CheckCircle className="text-primary" /> : <XCircle className="text-destructive" />,
     });
   };
 
   const currentQuestion = questions[gameState.currentQuestionIndex];
 
   return (
-    <div className="min-h-screen p-4 flex flex-col">
+    <div className="min-h-screen p-4 flex flex-col bg-background relative overflow-hidden">
+      {/* Animated gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -left-40 w-[400px] h-[400px] bg-gradient-to-br from-primary/20 to-secondary/10 rounded-full blur-[100px] animate-float" />
+        <div 
+          className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-gradient-to-br from-secondary/15 to-primary/10 rounded-full blur-[120px] animate-float" 
+          style={{ animationDelay: "2s" }} 
+        />
+      </div>
+
       <Confetti show={gameState.phase === "finished"} />
 
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="font-bold text-lg">{currentPlayer?.nickname}</div>
-        <div className="flex items-center gap-2 text-primary font-bold">
-          <Trophy className="w-5 h-5" />
-          {currentPlayer?.score || 0}
+      <div className="relative z-10 flex items-center justify-between mb-4 p-4 rounded-2xl bg-card/60 backdrop-blur-md border border-border/50 shadow-soft">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
+            <Zap className="w-5 h-5 text-white" />
+          </div>
+          <span className="font-bold text-lg text-foreground">{currentPlayer?.nickname}</span>
+        </div>
+        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/20">
+          <Trophy className="w-5 h-5 text-primary" />
+          <span className="text-primary font-bold text-lg">{currentPlayer?.score || 0}</span>
         </div>
       </div>
 
       {gameState.phase === "lobby" && (
-        <div className="flex-1 flex items-center justify-center">
-          <Card className="p-8 text-center max-w-md">
-            <Clock className="w-16 h-16 mx-auto mb-4 text-primary animate-pulse" />
-            <h2 className="text-2xl font-bold mb-2">Waiting for host...</h2>
+        <div className="relative z-10 flex-1 flex items-center justify-center">
+          <Card className="p-8 text-center max-w-md bg-card/80 backdrop-blur-md border border-border/50 shadow-soft-lg">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow animate-pulse-glow">
+              <Clock className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold mb-3 text-foreground">Waiting for host...</h2>
             <p className="text-muted-foreground">Get ready! The game will start soon.</p>
           </Card>
         </div>
       )}
 
       {gameState.phase === "question" && currentQuestion && (
-        <div className="flex-1 flex flex-col gap-3">
+        <div className="relative z-10 flex-1 flex flex-col gap-4">
           <CountdownTimer seconds={gameState.timeRemaining} maxSeconds={currentQuestion.time_limit} musicEnabled={musicEnabled} />
 
           {/* Question text for player */}
-          <Card className="p-4 text-center bg-card/80 backdrop-blur">
-            <p className="text-sm text-muted-foreground mb-1">
-              Question {gameState.currentQuestionIndex + 1}
+          <Card className="p-5 text-center bg-card/80 backdrop-blur-md border border-border/50 shadow-soft">
+            <p className="text-sm text-muted-foreground mb-2">
+              Question {gameState.currentQuestionIndex + 1} of {questions.length}
             </p>
-            <h2 className="text-lg md:text-xl font-bold">{currentQuestion.question_text}</h2>
+            <h2 className="text-lg md:text-xl font-bold text-foreground">{currentQuestion.question_text}</h2>
           </Card>
 
           {answerSubmitted ? (
-            <Card className="flex-1 flex items-center justify-center p-6 min-h-[200px]">
+            <Card className="flex-1 flex items-center justify-center p-6 min-h-[200px] bg-card/80 backdrop-blur-md border border-border/50 shadow-soft-lg">
               <div className="text-center animate-bounce-in">
                 {lastAnswerCorrect ? (
-                  <CheckCircle className="w-20 h-20 mx-auto text-green-500 mb-3" />
+                  <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-glow-lg">
+                    <CheckCircle className="w-12 h-12 text-white" />
+                  </div>
                 ) : (
-                  <XCircle className="w-20 h-20 mx-auto text-red-500 mb-3" />
+                  <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-destructive to-destructive/70 flex items-center justify-center shadow-soft-lg">
+                    <XCircle className="w-12 h-12 text-white" />
+                  </div>
                 )}
-                <p className="text-xl font-bold">
-                  {lastAnswerCorrect ? "Correct!" : "Wrong!"}
+                <p className="text-2xl font-bold text-foreground">
+                  {lastAnswerCorrect ? "Correct! 🎉" : "Wrong!"}
                 </p>
                 <p className="text-muted-foreground text-sm mt-2">Waiting for results...</p>
               </div>
             </Card>
           ) : (
-            <div className="grid grid-cols-2 gap-2 flex-1">
+            <div className="grid grid-cols-2 gap-3 flex-1">
               {currentQuestion.answers.map((answer, index) => (
                 <AnswerTile
                   key={index}
@@ -212,21 +232,30 @@ export default function PlayGame() {
       )}
 
       {gameState.phase === "results" && (
-        <div className="flex-1 flex items-center justify-center">
-          <Card className="p-8 text-center w-full max-w-md">
-            <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
+        <div className="relative z-10 flex-1 flex items-center justify-center">
+          <Card className="p-8 text-center w-full max-w-md bg-card/80 backdrop-blur-md border border-border/50 shadow-soft-lg">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-secondary to-secondary/70 flex items-center justify-center shadow-glow-secondary">
+              <Trophy className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold mb-6 text-foreground">Leaderboard</h2>
             <Leaderboard players={players} limit={5} />
           </Card>
         </div>
       )}
 
       {gameState.phase === "finished" && (
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center space-y-6">
-            <Trophy className="w-24 h-24 mx-auto text-accent" />
-            <h1 className="text-4xl font-black">Game Over!</h1>
-            <p className="text-2xl">Your Score: <span className="text-primary font-bold">{currentPlayer?.score || 0}</span></p>
-            <Leaderboard players={players} />
+        <div className="relative z-10 flex-1 flex items-center justify-center">
+          <div className="text-center space-y-6 p-8 rounded-3xl bg-card/80 backdrop-blur-md border border-border/50 shadow-soft-lg max-w-lg w-full">
+            <div className="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-glow-lg animate-pulse-glow">
+              <Trophy className="w-12 h-12 text-white" />
+            </div>
+            <h1 className="text-4xl font-black text-gradient">Game Over!</h1>
+            <p className="text-2xl text-foreground">
+              Your Score: <span className="text-gradient font-bold">{currentPlayer?.score || 0}</span>
+            </p>
+            <div className="pt-4 border-t border-border/50">
+              <Leaderboard players={players} />
+            </div>
           </div>
         </div>
       )}

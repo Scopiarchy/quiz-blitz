@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Sparkles, Users, Zap, Trophy, ArrowRight, Play, ChevronDown, Code, Award, Clock } from "lucide-react";
 
 export default function Index() {
@@ -16,22 +17,26 @@ export default function Index() {
               QuizBlitz
             </span>
           </div>
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-muted-foreground hover:text-primary transition-colors font-medium">
               Features
             </a>
             <a href="#how-it-works" className="text-muted-foreground hover:text-primary transition-colors font-medium">
               How It Works
             </a>
+            <ThemeToggle />
             <Link to="/auth">
               <Button variant="ghost" className="font-medium hover:text-primary">
                 Sign In
               </Button>
             </Link>
           </div>
-          <Link to="/auth" className="md:hidden">
-            <Button variant="ghost" size="sm">Sign In</Button>
-          </Link>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <Link to="/auth">
+              <Button variant="ghost" size="sm">Sign In</Button>
+            </Link>
+          </div>
         </div>
       </nav>
 

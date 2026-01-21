@@ -74,21 +74,21 @@ interface SettingRowProps {
 
 function SettingRow({ icon, label, description, children }: SettingRowProps) {
   return (
-    <div className="flex items-center justify-between py-4 border-b border-border/50 last:border-0">
+    <div className="flex items-center justify-between py-4 border-b border-border/30 last:border-0 group hover:bg-muted/20 -mx-2 px-2 rounded-lg transition-colors">
       <div className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/10 flex items-center justify-center text-primary shadow-sm group-hover:shadow-glow-primary/20 transition-shadow">
           {icon}
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-semibold">{label}</span>
+            <span className="font-semibold text-foreground">{label}</span>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <HelpCircle className="w-4 h-4 text-muted-foreground" />
+                  <HelpCircle className="w-4 h-4 text-muted-foreground hover:text-primary transition-colors" />
                 </TooltipTrigger>
-                <TooltipContent>
-                  <p className="max-w-xs">{description}</p>
+                <TooltipContent className="bg-card border-border/50 shadow-soft">
+                  <p className="max-w-xs text-sm">{description}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -161,25 +161,34 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
 
   if (loading) {
     return (
-      <Card className="animate-pulse">
-        <CardContent className="h-96" />
+      <Card className="animate-pulse bg-gradient-to-br from-card to-card/80 border-border/50">
+        <CardContent className="h-96 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+        </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10">
-        <CardTitle className="flex items-center gap-3">
-          <Settings2 className="w-6 h-6" />
-          Quiz Settings
+    <Card className="overflow-hidden bg-gradient-to-br from-card to-card/80 border-border/50 shadow-soft-lg">
+      {/* Decorative top gradient bar */}
+      <div className="h-1 bg-gradient-mixed" />
+      
+      <CardHeader className="bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 border-b border-border/30">
+        <CardTitle className="flex items-center gap-3 text-foreground">
+          <div className="w-10 h-10 rounded-xl bg-gradient-mixed flex items-center justify-center shadow-glow">
+            <Settings2 className="w-5 h-5 text-white" />
+          </div>
+          <span className="text-gradient font-bold">Quiz Settings</span>
           {saving && (
-            <span className="text-xs text-muted-foreground font-normal animate-pulse">
+            <span className="text-xs text-primary font-normal animate-pulse flex items-center gap-1 ml-auto">
+              <div className="w-3 h-3 border border-primary/30 border-t-primary rounded-full animate-spin" />
               Saving...
             </span>
           )}
         </CardTitle>
       </CardHeader>
+      
       <CardContent className="p-6">
         <div className="space-y-1">
           <SettingRow
@@ -191,6 +200,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               checked={settings.random_questions}
               onCheckedChange={(checked) => updateSetting("random_questions", checked)}
               disabled={disabled}
+              className="data-[state=checked]:bg-primary"
             />
           </SettingRow>
 
@@ -203,6 +213,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               checked={settings.random_answers}
               onCheckedChange={(checked) => updateSetting("random_answers", checked)}
               disabled={disabled}
+              className="data-[state=checked]:bg-primary"
             />
           </SettingRow>
 
@@ -215,6 +226,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               checked={settings.show_answers}
               onCheckedChange={(checked) => updateSetting("show_answers", checked)}
               disabled={disabled}
+              className="data-[state=checked]:bg-primary"
             />
           </SettingRow>
 
@@ -228,6 +240,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
                 checked={settings.enable_timer}
                 onCheckedChange={(checked) => updateSetting("enable_timer", checked)}
                 disabled={disabled}
+                className="data-[state=checked]:bg-primary"
               />
               {settings.enable_timer && (
                 <Select
@@ -235,10 +248,10 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
                   onValueChange={(val) => updateSetting("timer_seconds", parseInt(val))}
                   disabled={disabled}
                 >
-                  <SelectTrigger className="w-28">
+                  <SelectTrigger className="w-28 border-border/50 bg-muted/50 focus:border-primary focus:ring-primary/20">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-card border-border/50">
                     <SelectItem value="10">10 sec</SelectItem>
                     <SelectItem value="20">20 sec</SelectItem>
                     <SelectItem value="30">30 sec</SelectItem>
@@ -259,10 +272,10 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               onValueChange={(val) => updateSetting("points_mode", val)}
               disabled={disabled}
             >
-              <SelectTrigger className="w-36">
+              <SelectTrigger className="w-36 border-border/50 bg-muted/50 focus:border-primary focus:ring-primary/20">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-card border-border/50">
                 <SelectItem value="standard">Standard</SelectItem>
                 <SelectItem value="double">Double Points</SelectItem>
                 <SelectItem value="none">No Points</SelectItem>
@@ -279,6 +292,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               checked={settings.leaderboard_enabled}
               onCheckedChange={(checked) => updateSetting("leaderboard_enabled", checked)}
               disabled={disabled}
+              className="data-[state=checked]:bg-primary"
             />
           </SettingRow>
 
@@ -291,6 +305,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               checked={settings.music_enabled}
               onCheckedChange={(checked) => updateSetting("music_enabled", checked)}
               disabled={disabled}
+              className="data-[state=checked]:bg-primary"
             />
           </SettingRow>
 
@@ -303,6 +318,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               checked={settings.nickname_generator}
               onCheckedChange={(checked) => updateSetting("nickname_generator", checked)}
               disabled={disabled}
+              className="data-[state=checked]:bg-primary"
             />
           </SettingRow>
 
@@ -317,7 +333,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
               max={500}
               value={settings.max_players}
               onChange={(e) => updateSetting("max_players", parseInt(e.target.value) || 50)}
-              className="w-24 text-center"
+              className="w-24 text-center border-border/50 bg-muted/50 focus:border-primary focus:ring-primary/20"
               disabled={disabled}
             />
           </SettingRow>
@@ -327,7 +343,7 @@ export function QuizSettings({ quizId, onStartGame, disabled = false }: QuizSett
           <Button
             onClick={onStartGame}
             size="xl"
-            className="w-full"
+            className="w-full bg-gradient-button hover:opacity-90 shadow-glow hover:shadow-glow-lg transition-all font-bold text-lg"
             disabled={disabled}
           >
             <Play className="w-6 h-6 mr-2" />

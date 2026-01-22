@@ -156,35 +156,64 @@
   }
 
   .answer-tile {
-    @apply relative w-full h-full min-h-[80px] rounded-2xl font-semibold text-white text-xl flex items-center justify-center cursor-pointer;
+    @apply relative w-full h-full min-h-[80px] rounded-2xl font-semibold text-white text-xl flex items-center justify-center cursor-pointer overflow-hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   }
 
   .answer-tile:hover {
-    transform: scale(1.03) translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
-  }
-
-  .answer-tile:active {
-    transform: scale(0.97);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
   }
 
   .answer-red {
-    background: linear-gradient(135deg, hsl(0, 75%, 55%) 0%, hsl(350, 70%, 50%) 100%);
+    background: linear-gradient(135deg, hsl(0, 80%, 55%) 0%, hsl(340, 75%, 50%) 100%);
+    box-shadow: 0 4px 20px hsla(0, 80%, 55%, 0.35);
+  }
+
+  .answer-red:hover {
+    box-shadow: 0 12px 40px hsla(0, 80%, 55%, 0.5);
   }
 
   .answer-blue {
-    background: linear-gradient(135deg, hsl(210, 85%, 55%) 0%, hsl(230, 80%, 55%) 100%);
+    background: linear-gradient(135deg, hsl(220, 90%, 60%) 0%, hsl(250, 85%, 55%) 100%);
+    box-shadow: 0 4px 20px hsla(220, 90%, 60%, 0.35);
+  }
+
+  .answer-blue:hover {
+    box-shadow: 0 12px 40px hsla(220, 90%, 60%, 0.5);
   }
 
   .answer-yellow {
-    background: linear-gradient(135deg, hsl(45, 95%, 55%) 0%, hsl(35, 90%, 50%) 100%);
-    color: hsl(0, 0%, 18%);
+    background: linear-gradient(135deg, hsl(45, 100%, 55%) 0%, hsl(35, 95%, 50%) 100%);
+    color: hsl(0, 0%, 15%);
+    box-shadow: 0 4px 20px hsla(45, 100%, 55%, 0.35);
+  }
+
+  .answer-yellow:hover {
+    box-shadow: 0 12px 40px hsla(45, 100%, 55%, 0.5);
   }
 
   .answer-green {
-    background: linear-gradient(135deg, hsl(152, 100%, 45%) 0%, hsl(165, 90%, 40%) 100%);
+    background: linear-gradient(135deg, hsl(152, 100%, 45%) 0%, hsl(170, 95%, 40%) 100%);
+    box-shadow: 0 4px 20px hsla(152, 100%, 45%, 0.35);
+  }
+
+  .answer-green:hover {
+    box-shadow: 0 12px 40px hsla(152, 100%, 45%, 0.5);
+  }
+
+  .shadow-glow-correct {
+    box-shadow: 0 0 30px hsla(152, 100%, 50%, 0.6), 0 0 60px hsla(152, 100%, 50%, 0.3);
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
   }
 
   .glow-text {

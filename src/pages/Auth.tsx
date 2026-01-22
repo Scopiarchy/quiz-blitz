@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Mail, Lock, User, ArrowLeft, Zap } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -67,13 +68,16 @@ export default function Auth() {
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to home
-        </Link>
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to home
+          </Link>
+          <ThemeToggle />
+        </div>
 
         <Card className="shadow-soft-lg border-border/50">
           <CardHeader className="text-center">

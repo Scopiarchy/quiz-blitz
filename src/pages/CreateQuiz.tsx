@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { QuizSettings } from "@/components/QuizSettings";
+import { FileUploadQuiz } from "@/components/FileUploadQuiz";
 import { toast } from "sonner";
 import {
   Plus,
@@ -27,6 +28,7 @@ import {
   Clock,
   Check,
   Settings2,
+  Sparkles,
 } from "lucide-react";
 
 interface Question {
@@ -58,6 +60,7 @@ export default function CreateQuiz() {
   const [savedQuizzes, setSavedQuizzes] = useState<{ id: string; title: string }[]>([]);
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [showUploader, setShowUploader] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -151,6 +154,15 @@ export default function CreateQuiz() {
       questions: [...prev.questions, createEmptyQuestion(prev.questions.length)],
     }));
     setCurrentQuestionIndex(quiz.questions.length);
+  };
+
+  const handleQuestionsGenerated = (newQuestions: Question[]) => {
+    setQuiz((prev) => ({
+      ...prev,
+      questions: [...prev.questions, ...newQuestions],
+    }));
+    setCurrentQuestionIndex(quiz.questions.length);
+    setShowUploader(false);
   };
 
   const deleteQuestion = () => {
@@ -409,15 +421,44 @@ export default function CreateQuiz() {
                     </span>
                   </button>
                 ))}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full mt-2 border-primary/30 hover:border-primary hover:bg-primary/10 text-primary"
-                  onClick={addQuestion}
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Question
-                </Button>
+                <div className="flex gap-2 mt-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 border-primary/30 hover:border-primary hover:bg-primary/10 text-primary"
+                    onClick={addQuestion}
+                  >
+                    <Plus className="w-4 h-4 mr-1" />
+                    Add
+                  </Button>
+                  <Dialog open={showUploader} onOpenChange={setShowUploader}>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 border-secondary/30 hover:border-secondary hover:bg-secondary/10 text-secondary"
+                      >
+                        <Sparkles className="w-4 h-4 mr-1" />
+                        AI
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-lg bg-card border-border">
+                      <DialogHeader>
+                        <DialogTitle className="text-foreground flex items-center gap-2">
+                          <Sparkles className="w-5 h-5 text-primary" />
+                          Generate from Document
+                        </DialogTitle>
+                        <DialogDescription>
+                          Upload lecture notes, summaries, or lesson materials to automatically generate quiz questions.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <FileUploadQuiz
+                        onQuestionsGenerated={handleQuestionsGenerated}
+                        existingQuestionCount={quiz.questions.length}
+                      />
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </CardContent>
             </Card>
           </div>

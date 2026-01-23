@@ -29,6 +29,8 @@ import {
   Check,
   Settings2,
   Sparkles,
+  RefreshCw,
+  Loader2,
 } from "lucide-react";
 
 interface Question {
@@ -61,6 +63,7 @@ export default function CreateQuiz() {
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [showUploader, setShowUploader] = useState(false);
+  const [regenerating, setRegenerating] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -163,6 +166,75 @@ export default function CreateQuiz() {
     }));
     setCurrentQuestionIndex(quiz.questions.length);
     setShowUploader(false);
+  };
+
+  const regenerateQuestion = async () => {
+    if (!currentQuestion.question_text.trim()) {
+      toast.error("Add some question text first to regenerate");
+      return;
+    }
+
+    setRegenerating(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/regenerate-question`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${session?.access_token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            currentQuestion,
+            quizTitle: quiz.title,
+            quizDescription: quiz.description,
+            allQuestions: quiz.questions,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        if (response.status === 429) {
+          throw new Error("Rate limit exceeded. Please wait a moment and try again.");
+        }
+        if (response.status === 402) {
+          throw new Error("AI credits exhausted. Please add credits to continue.");
+        }
+        throw new Error(error.error || "Failed to regenerate question");
+      }
+
+      const data = await response.json();
+      
+      if (!data.question) {
+        throw new Error("No question was generated");
+      }
+
+      // Update the current question with regenerated content
+      setQuiz((prev) => ({
+        ...prev,
+        questions: prev.questions.map((q, i) =>
+          i === currentQuestionIndex
+            ? {
+                ...q,
+                question_text: data.question.question_text,
+                answers: data.question.answers,
+                correct_answer_index: data.question.correct_answer_index,
+                time_limit: data.question.time_limit,
+              }
+            : q
+        ),
+      }));
+      
+      toast.success("Question regenerated!");
+    } catch (error) {
+      console.error("Regeneration error:", error);
+      toast.error(error instanceof Error ? error.message : "Failed to regenerate question");
+    } finally {
+      setRegenerating(false);
+    }
   };
 
   const deleteQuestion = () => {
@@ -514,6 +586,20 @@ export default function CreateQuiz() {
                     className="text-muted-foreground hover:text-primary"
                   >
                     <ChevronRight className="w-5 h-5" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={regenerateQuestion}
+                    disabled={regenerating || !currentQuestion.question_text.trim()}
+                    className="border-secondary/30 hover:border-secondary hover:bg-secondary/10 text-secondary"
+                    title="Regenerate with AI"
+                  >
+                    {regenerating ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <RefreshCw className="w-4 h-4" />
+                    )}
                   </Button>
                   <Button
                     variant="destructive"

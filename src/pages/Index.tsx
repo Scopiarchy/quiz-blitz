@@ -2,10 +2,14 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { UserMenu } from "@/components/UserMenu";
 import { FadeInUp, ScaleIn, StaggerContainer, StaggerItem } from "@/components/MotionWrappers";
 import { Sparkles, Users, Zap, Trophy, ArrowRight, Play, ChevronDown, Code, Award, Clock } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Index() {
+  const { user } = useAuth();
+
   return (
     <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
       {/* Navigation */}
@@ -27,17 +31,11 @@ export default function Index() {
               How It Works
             </a>
             <ThemeToggle />
-            <Link to="/auth">
-              <Button variant="ghost" className="font-medium hover:text-primary">
-                Sign In
-              </Button>
-            </Link>
+            <UserMenu />
           </div>
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
-            <Link to="/auth">
-              <Button variant="ghost" size="sm">Sign In</Button>
-            </Link>
+            <UserMenu />
           </div>
         </div>
       </nav>

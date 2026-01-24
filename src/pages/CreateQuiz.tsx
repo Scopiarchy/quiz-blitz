@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/dialog";
 import { QuizSettings } from "@/components/QuizSettings";
 import { FileUploadQuiz } from "@/components/FileUploadQuiz";
+import { UserMenu } from "@/components/UserMenu";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { toast } from "sonner";
 import {
   Plus,
@@ -31,6 +33,7 @@ import {
   Sparkles,
   RefreshCw,
   Loader2,
+  Zap,
 } from "lucide-react";
 
 interface Question {
@@ -396,18 +399,18 @@ export default function CreateQuiz() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="flex flex-wrap items-center gap-4 mb-8">
-          <Link to="/">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Home
-            </Button>
+        <nav className="flex flex-wrap items-center gap-4 mb-8">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-bold text-gradient hidden sm:inline">QuizBlitz</span>
           </Link>
           <h1 className="text-2xl md:text-3xl font-bold flex-1 text-gradient">Quiz Creator</h1>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={exportQuiz} className="border-border hover:border-primary hover:bg-primary/10">
               <Download className="w-4 h-4 mr-2" />
-              Export
+              <span className="hidden sm:inline">Export</span>
             </Button>
             <Button size="sm" onClick={saveQuiz} disabled={saving} className="bg-gradient-button shadow-glow hover:shadow-glow-lg">
               <Save className="w-4 h-4 mr-2" />
@@ -417,7 +420,7 @@ export default function CreateQuiz() {
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm" onClick={openSettings} className="border-border hover:border-secondary hover:bg-secondary/10">
                   <Settings2 className="w-4 h-4 mr-2" />
-                  Settings
+                  <span className="hidden sm:inline">Settings</span>
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border-border">
@@ -437,10 +440,12 @@ export default function CreateQuiz() {
             </Dialog>
             <Button size="sm" onClick={openSettings} className="bg-gradient-secondary shadow-glow-secondary hover:opacity-90">
               <Play className="w-4 h-4 mr-2" />
-              Start Game
+              <span className="hidden sm:inline">Start Game</span>
             </Button>
+            <ThemeToggle />
+            <UserMenu />
           </div>
-        </div>
+        </nav>
 
         <div className="grid lg:grid-cols-[250px_1fr] gap-6">
           {/* Sidebar */}

@@ -6,11 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { ArrowLeft, Users, Sparkles } from "lucide-react";
+import { AvatarSelector, AVATAR_OPTIONS } from "@/components/AvatarSelector";
 
 export default function JoinGame() {
   const [searchParams] = useSearchParams();
   const [pin, setPin] = useState("");
   const [nickname, setNickname] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_OPTIONS[0].src);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -55,6 +57,7 @@ export default function JoinGame() {
         .insert({
           session_id: session.id,
           nickname: nickname.trim(),
+          avatar_url: selectedAvatar,
         })
         .select()
         .single();
@@ -124,6 +127,15 @@ export default function JoinGame() {
                   onChange={(e) => setNickname(e.target.value)}
                   className="h-14 rounded-xl border-border/50 bg-muted/50 focus:border-primary focus:ring-2 focus:ring-primary/20 text-lg"
                   maxLength={20}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground/80">Choose Your Avatar</label>
+                <AvatarSelector
+                  selectedAvatar={selectedAvatar}
+                  onSelect={setSelectedAvatar}
+                  size="sm"
                 />
               </div>
               

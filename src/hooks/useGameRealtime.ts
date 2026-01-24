@@ -6,6 +6,7 @@ interface Player {
   id: string;
   nickname: string;
   score: number;
+  avatar_url?: string;
 }
 
 interface GameState {
@@ -59,7 +60,7 @@ export function useGameRealtime(sessionId: string, isHost: boolean = false) {
         .order("score", { ascending: false });
       
       if (data) {
-        setPlayers(data.map(p => ({ id: p.id, nickname: p.nickname, score: p.score || 0 })));
+        setPlayers(data.map(p => ({ id: p.id, nickname: p.nickname, score: p.score || 0, avatar_url: p.avatar_url || undefined })));
       }
     };
 

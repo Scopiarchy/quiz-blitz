@@ -1,10 +1,12 @@
 import { Trophy, Medal, Award, Crown } from "lucide-react";
 import { motion } from "framer-motion";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface Player {
   id: string;
   nickname: string;
   score: number;
+  avatar_url?: string;
 }
 
 interface LeaderboardProps {
@@ -93,10 +95,18 @@ export function Leaderboard({ players, limit }: LeaderboardProps) {
             <div className="flex items-center justify-center w-10 h-10">
               {getRankIcon(index)}
             </div>
+            <Avatar className="w-10 h-10 border-2 border-border/50">
+              {player.avatar_url ? (
+                <AvatarImage src={player.avatar_url} alt={player.nickname} />
+              ) : null}
+              <AvatarFallback className="bg-primary/20 text-primary font-bold text-sm">
+                {player.nickname.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
             <div className="flex-1 font-bold text-lg truncate text-foreground">
               {player.nickname}
             </div>
-            <motion.div 
+            <motion.div
               className={`text-xl font-black ${styles.score}`}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}

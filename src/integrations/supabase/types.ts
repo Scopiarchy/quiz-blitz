@@ -118,6 +118,7 @@ export type Database = {
       }
       players: {
         Row: {
+          avatar_url: string | null
           id: string
           joined_at: string | null
           nickname: string
@@ -125,6 +126,7 @@ export type Database = {
           session_id: string
         }
         Insert: {
+          avatar_url?: string | null
           id?: string
           joined_at?: string | null
           nickname: string
@@ -132,6 +134,7 @@ export type Database = {
           session_id: string
         }
         Update: {
+          avatar_url?: string | null
           id?: string
           joined_at?: string | null
           nickname?: string

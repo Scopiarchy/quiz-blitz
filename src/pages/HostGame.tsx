@@ -10,6 +10,7 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 import { Leaderboard } from "@/components/Leaderboard";
 import { Confetti } from "@/components/Confetti";
 import { QRCodeDisplay } from "@/components/QRCodeDisplay";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "sonner";
 import { Play, Users, Trophy, SkipForward } from "lucide-react";
 
@@ -121,6 +122,7 @@ export default function HostGame() {
           id: p.id,
           nickname: p.nickname,
           score: p.score || 0,
+          avatar_url: p.avatar_url || undefined,
         }))
       );
     }
@@ -181,15 +183,23 @@ export default function HostGame() {
                     <p className="text-muted-foreground animate-pulse">Waiting for players...</p>
                   </div>
                 ) : (
-                  <div className="flex flex-wrap justify-center gap-2 content-start">
+                  <div className="flex flex-wrap justify-center gap-3 content-start">
                     {players.map((player, i) => (
-                      <span 
+                      <div 
                         key={player.id} 
-                        className="px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full font-medium border border-primary/30 text-foreground animate-slide-up"
+                        className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full font-medium border border-primary/30 text-foreground animate-slide-up"
                         style={{ animationDelay: `${i * 0.1}s` }}
                       >
-                        {player.nickname}
-                      </span>
+                        <Avatar className="w-7 h-7 border border-border/50">
+                          {player.avatar_url ? (
+                            <AvatarImage src={player.avatar_url} alt={player.nickname} />
+                          ) : null}
+                          <AvatarFallback className="bg-primary/30 text-primary text-xs font-bold">
+                            {player.nickname.slice(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span>{player.nickname}</span>
+                      </div>
                     ))}
                   </div>
                 )}
